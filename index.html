@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="brand_assets/Logo.png">
+  <title>Finora Business Solutions | Premium Accounting & VAT — Dubai, UAE</title>
+  <meta name="description" content="Premium accounting, VAT, bookkeeping, payroll and business support for UAE companies. Finora Business Solutions — Dubai.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#D4AF37',
+            'gold-rich': '#B88A1D',
+            'dark-black': '#0A0A0A',
+            'dark-charcoal': '#141414',
+            'dark-surface': '#1A1A1A',
+            'soft-white': '#F7F3EA',
+            'muted-text': '#B8B2A5',
+            'dim-text': '#7A7570',
+          },
+          fontFamily: {
+            serif: ['Noto Serif', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0A0A0A;
+      color: #F7F3EA;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    /* Gold gradient text */
+    .gold-text {
+      background: linear-gradient(135deg, #C9A227 0%, #F0D060 45%, #B88A1D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Gold divider line */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.35) 50%, transparent 100%);
+    }
+
+    /* Section eyebrow label */
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D4AF37;
+    }
+
+    /* Nav link */
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: #B8B2A5;
+      position: relative;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: #D4AF37;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #D4AF37; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 1px solid #D4AF37; outline-offset: 4px; border-radius: 2px; }
+
+    .brand-logo {
+      display: block;
+      width: 142px;
+      height: auto;
+      filter: saturate(1.08) contrast(1.08);
+    }
+
+    .footer-brand-logo {
+      width: 165px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
+      align-items: center;
+      gap: clamp(40px, 7vw, 112px);
+    }
+
+    .hero-copy {
+      max-width: 660px;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 360px;
+      pointer-events: none;
+    }
+
+    .hero-logo {
+      display: block;
+      width: min(100%, 500px);
+      height: auto;
+      mix-blend-mode: screen;
+      opacity: 0.92;
+      filter: saturate(1.2) contrast(1.18) drop-shadow(0 0 42px rgba(212,175,55,0.24));
+      animation: heroLogoBreathe 5.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes heroLogoBreathe {
+      0%, 100% {
+        opacity: 0.86;
+        transform: scale(0.985);
+        filter: saturate(1.12) contrast(1.12) drop-shadow(0 0 28px rgba(212,175,55,0.18));
+      }
+      50% {
+        opacity: 0.96;
+        transform: scale(1.02);
+        filter: saturate(1.28) contrast(1.2) drop-shadow(0 0 54px rgba(212,175,55,0.34));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-logo {
+        animation: none;
+      }
+    }
+
+    /* Buttons */
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #D4AF37 0%, #C9A227 50%, #B88A1D 100%);
+      color: #0A0A0A;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.25s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 24px rgba(212,175,55,0.28), 0 0 0 1px rgba(212,175,55,0.1);
+    }
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(212,175,55,0.4); }
+    .btn-gold:hover::before { opacity: 1; }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:focus-visible { outline: 2px solid #D4AF37; outline-offset: 3px; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 13px 32px;
+      background: transparent;
+      color: #D4AF37;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(212,175,55,0.45);
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(212,175,55,0.07);
+      border-color: rgba(212,175,55,0.8);
+      transform: translateY(-2px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 2px solid #D4AF37; outline-offset: 3px; }
+
+    /* Service card */
+    .service-card {
+      background: #141414;
+      border: 1px solid rgba(212,175,55,0.14);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 20% 20%, rgba(212,175,55,0.04) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .service-card:hover {
+      border-color: rgba(212,175,55,0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.15), 0 0 40px rgba(212,175,55,0.06);
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .icon-box {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(212,175,55,0.12);
+      border: 1px solid rgba(212,175,55,0.32);
+      margin-bottom: 24px;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(212,175,55,0.06);
+    }
+
+    /* Why item */
+    .why-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      transition: transform 0.3s ease;
+    }
+    .why-item:hover { transform: translateX(6px); }
+
+    /* Testimonial card */
+    .testi-card {
+      background: #111111;
+      border: 1px solid rgba(212,175,55,0.1);
+      padding: 36px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testi-card:hover {
+      border-color: rgba(212,175,55,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.04);
+    }
+
+    /* Floating WhatsApp */
+    .wa-float {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      z-index: 9990;
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #D4AF37, #B88A1D);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+    }
+    .wa-float:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 8px 32px rgba(212,175,55,0.5);
+    }
+    .wa-float:focus-visible { outline: 2px solid #D4AF37; outline-offset: 3px; }
+
+    /* Scroll-reveal base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* Mobile menu hidden by default */
+    #mobile-nav { display: none; }
+    #mobile-nav.open { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ========================================================
+     FLOATING WHATSAPP
+     ======================================================== -->
+<a href="https://wa.me/971000000000" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#0A0A0A">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ========================================================
+     NAVIGATION
+     ======================================================== -->
+<header id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(10,10,10,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,0.09);transition:background 0.3s ease,border-color 0.3s ease;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:76px;">
+
+      <!-- Logo -->
+      <a href="#" style="text-decoration:none;line-height:1;flex-shrink:0;display:flex;align-items:center;" aria-label="Finora Business Solutions home">
+        <img class="brand-logo" src="brand_assets/Logo-wordmark.png" alt="Finora Business Solutions">
+      </a>
+
+      <!-- Desktop nav -->
+      <nav style="display:none;" id="desktop-nav">
+        <div style="display:flex;align-items:center;gap:36px;">
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#vat" class="nav-link">VAT &amp; Tax</a>
+          <a href="#payroll" class="nav-link">Payroll</a>
+          <a href="#insights" class="nav-link">Insights</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <!-- CTA -->
+      <div style="display:none;" id="desktop-cta">
+        <a href="#contact" class="btn-gold" style="padding:11px 24px;font-size:0.65rem;">Free Consultation</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button id="hamburger" aria-label="Open menu" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;">
+        <span style="display:block;width:22px;height:1px;background:#D4AF37;transition:transform 0.3s ease,opacity 0.3s ease;" id="h1"></span>
+        <span style="display:block;width:22px;height:1px;background:#D4AF37;transition:opacity 0.3s ease;" id="h2"></span>
+        <span style="display:block;width:14px;height:1px;background:#D4AF37;transition:transform 0.3s ease,opacity 0.3s ease;" id="h3"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div id="mobile-nav" style="background:#0E0E0E;border-top:1px solid rgba(212,175,55,0.08);">
+    <div style="padding:28px 32px;display:flex;flex-direction:column;gap:6px;">
+      <a href="#services" class="nav-link" style="padding:10px 0;border-bottom:1px solid rgba(212,175,55,0.06);">Services</a>
+      <a href="#vat" class="nav-link" style="padding:10px 0;border-bottom:1px solid rgba(212,175,55,0.06);">VAT &amp; Tax</a>
+      <a href="#payroll" class="nav-link" style="padding:10px 0;border-bottom:1px solid rgba(212,175,55,0.06);">Payroll</a>
+      <a href="#insights" class="nav-link" style="padding:10px 0;border-bottom:1px solid rgba(212,175,55,0.06);">Insights</a>
+      <a href="#about" class="nav-link" style="padding:10px 0;border-bottom:1px solid rgba(212,175,55,0.06);">About</a>
+      <a href="#contact" class="nav-link" style="padding:10px 0;">Contact</a>
+      <a href="#contact" class="btn-gold" style="margin-top:16px;text-align:center;">Free Consultation</a>
+    </div>
+  </div>
+</header>
+
+<!-- ========================================================
+     HERO
+     ======================================================== -->
+<section id="hero" style="position:relative;min-height:100vh;display:flex;align-items:center;background:#0A0A0A;overflow:hidden;padding-top:76px;">
+
+  <!-- Layered background radials (simulated city glow) -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 75% 65%, rgba(212,175,55,0.11) 0%, transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 35% 30% at 15% 85%, rgba(212,175,55,0.07) 0%, transparent 55%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 35% at 50% 100%, rgba(212,175,55,0.08) 0%, transparent 60%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 30% 20% at 90% 20%, rgba(212,175,55,0.04) 0%, transparent 50%);pointer-events:none;"></div>
+
+  <!-- Subtle grid -->
+  <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(212,175,55,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.025) 1px,transparent 1px);background-size:72px 72px;"></div>
+
+  <!-- Top gold line -->
+  <div style="position:absolute;top:76px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.3),transparent);"></div>
+
+  <!-- Decorative vertical lines right side -->
+  <div style="position:absolute;right:8%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(212,175,55,0.1) 30%,rgba(212,175,55,0.18) 60%,transparent);pointer-events:none;"></div>
+  <div style="position:absolute;right:18%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(212,175,55,0.06) 40%,rgba(212,175,55,0.1) 60%,transparent);pointer-events:none;"></div>
+  <div style="position:absolute;right:28%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(212,175,55,0.03) 50%,rgba(212,175,55,0.06) 60%,transparent);pointer-events:none;"></div>
+  <!-- Right side gold depth panel -->
+  <div style="position:absolute;right:0;top:0;bottom:0;width:42%;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.025) 50%,rgba(212,175,55,0.04) 100%);pointer-events:none;"></div>
+
+  <!-- Hero content -->
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:64px 32px 80px;width:100%;">
+    <div class="hero-inner">
+    <div class="hero-copy">
+
+      <!-- Eyebrow -->
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:36px;">
+        <div style="width:40px;height:1px;background:#D4AF37;"></div>
+        <span class="eyebrow">Dubai, UAE · finorame.com</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 style="font-family:'Noto Serif',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:300;line-height:1.04;letter-spacing:-0.025em;margin-bottom:32px;">
+        <span style="color:#F7F3EA;display:block;">Smart Finance.</span>
+        <span class="gold-text" style="display:block;">Clear Numbers.</span>
+        <span style="color:#F7F3EA;display:block;">Confident Growth.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p style="font-family:'Inter',sans-serif;font-size:1.05rem;line-height:1.8;color:#B8B2A5;max-width:500px;margin-bottom:48px;">
+        Premium accounting, VAT, bookkeeping, payroll and business support for UAE companies.
+      </p>
+
+      <!-- CTAs -->
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+        <a href="#contact" class="btn-gold">Get Free Consultation</a>
+        <a href="https://wa.me/971000000000" class="btn-outline" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp Now
+        </a>
+      </div>
+
+      <!-- Scroll cue -->
+      <div style="display:flex;align-items:center;gap:12px;margin-top:64px;">
+        <div style="width:1px;height:36px;background:rgba(212,175,55,0.3);"></div>
+        <span style="font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#4A4540;">Scroll to explore</span>
+      </div>
+    </div>
+    <div class="hero-logo-wrap" aria-hidden="true">
+      <img class="hero-logo" src="brand_assets/Logo-hero.png" alt="">
+    </div>
+    </div>
+  </div>
+
+  <!-- Bottom fade -->
+  <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,#0A0A0A);pointer-events:none;"></div>
+</section>
+
+<!-- ========================================================
+     TRUST METRICS
+     ======================================================== -->
+<section style="background:#111111;border-top:1px solid rgba(212,175,55,0.12);border-bottom:1px solid rgba(212,175,55,0.12);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);" id="metrics-grid">
+
+      <div class="reveal" style="padding:44px 0;text-align:center;border-right:1px solid rgba(212,175,55,0.1);">
+        <div style="font-family:'Noto Serif',serif;font-size:2.8rem;font-weight:300;line-height:1;margin-bottom:10px;" class="gold-text">15+</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#7A7570;">Years Experience</div>
+      </div>
+
+      <div class="reveal delay-1" style="padding:44px 0;text-align:center;border-right:1px solid rgba(212,175,55,0.1);">
+        <div style="font-family:'Noto Serif',serif;font-size:2.8rem;font-weight:300;line-height:1;margin-bottom:10px;" class="gold-text">UAE</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#7A7570;">Compliance Focused</div>
+      </div>
+
+      <div class="reveal delay-2" style="padding:44px 0;text-align:center;border-right:1px solid rgba(212,175,55,0.1);">
+        <div style="font-family:'Noto Serif',serif;font-size:2.8rem;font-weight:300;line-height:1;margin-bottom:10px;" class="gold-text">Flex</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#7A7570;">Part-Time Support</div>
+      </div>
+
+      <div class="reveal delay-3" style="padding:44px 0;text-align:center;">
+        <div style="font-family:'Noto Serif',serif;font-size:2.8rem;font-weight:300;line-height:1;margin-bottom:10px;" class="gold-text">100%</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#7A7570;">Confidential Service</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     ABOUT
+     ======================================================== -->
+<section id="about" style="background:#0A0A0A;padding:112px 0;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;" id="about-grid">
+
+      <!-- Image -->
+      <div class="reveal" style="position:relative;">
+        <div style="position:relative;overflow:hidden;line-height:0;border:1px solid rgba(212,175,55,0.18);box-shadow:0 0 0 1px rgba(212,175,55,0.06),0 32px 80px rgba(0,0,0,0.6);">
+          <img src="brand_assets/620X700.png" alt="Finora office" style="width:100%;display:block;filter:grayscale(15%) contrast(1.05);opacity:0.9;">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,0.08) 0%,transparent 50%,rgba(10,10,10,0.45) 100%);"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,10,0.55) 0%,transparent 40%);"></div>
+        </div>
+        <!-- Corner accent frames -->
+        <div style="position:absolute;top:-12px;left:-12px;width:56px;height:56px;border-top:1px solid rgba(212,175,55,0.4);border-left:1px solid rgba(212,175,55,0.4);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-12px;right:-12px;width:56px;height:56px;border-bottom:1px solid rgba(212,175,55,0.4);border-right:1px solid rgba(212,175,55,0.4);pointer-events:none;"></div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal delay-2">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div style="width:40px;height:1px;background:#D4AF37;"></div>
+          <span class="eyebrow">About Finora</span>
+        </div>
+
+        <h2 style="font-family:'Noto Serif',serif;font-size:clamp(2.2rem,3.5vw,3.4rem);font-weight:300;line-height:1.1;letter-spacing:-0.015em;margin-bottom:32px;">
+          <span style="color:#F7F3EA;">Professional.</span><br>
+          <span style="color:#F7F3EA;">Reliable.</span><br>
+          <span class="gold-text">Discreet.</span>
+        </h2>
+
+        <p style="font-family:'Inter',sans-serif;font-size:1rem;line-height:1.85;color:#B8B2A5;margin-bottom:20px;">
+          Finora Business Solutions provides accurate and confidential accounting, VAT, tax, payroll and business support for growing companies across the UAE and Middle East.
+        </p>
+
+        <p style="font-family:'Inter',sans-serif;font-size:0.92rem;line-height:1.85;color:#7A7570;margin-bottom:40px;">
+          We help business owners stay compliant, organized and financially clear, while they focus on running and growing their business.
+        </p>
+
+        <div class="divider" style="margin-bottom:40px;"></div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+          <div>
+            <div style="font-family:'Noto Serif',serif;font-size:1.6rem;font-weight:300;margin-bottom:6px;" class="gold-text">UAE</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.12em;color:#4A4540;text-transform:uppercase;">Registered</div>
+          </div>
+          <div>
+            <div style="font-family:'Noto Serif',serif;font-size:1.6rem;font-weight:300;margin-bottom:6px;" class="gold-text">FTA</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.12em;color:#4A4540;text-transform:uppercase;">Compliant</div>
+          </div>
+          <div>
+            <div style="font-family:'Noto Serif',serif;font-size:1.6rem;font-weight:300;margin-bottom:6px;" class="gold-text">Expert</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.7rem;letter-spacing:0.12em;color:#4A4540;text-transform:uppercase;">& Discreet</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     SERVICES
+     ======================================================== -->
+<section id="services" style="background:#0D0D0D;padding:112px 0;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:72px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;">
+        <div style="width:40px;height:1px;background:#D4AF37;"></div>
+        <span class="eyebrow">What We Offer</span>
+        <div style="width:40px;height:1px;background:#D4AF37;"></div>
+      </div>
+      <h2 style="font-family:'Noto Serif',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;">
+        <span style="color:#F7F3EA;">Premium Business </span><span class="gold-text">Support Services</span>
+      </h2>
+    </div>
+
+    <!-- Grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,175,55,0.06);" id="services-grid">
+
+      <!-- 1 -->
+      <div class="service-card reveal">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">Accounting &amp;<br>Bookkeeping</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">Comprehensive financial record-keeping, ledger management and accurate monthly accounting for your business.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="service-card reveal delay-1" id="vat">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">VAT Filing &amp;<br>Compliance</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">FTA-compliant VAT registration, preparation and filing. Stay compliant with UAE Federal Tax Authority requirements.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="service-card reveal delay-2">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">Corporate Tax<br>Support</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">Expert guidance on UAE corporate tax obligations, registration, computation and filing under current regulations.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="service-card reveal delay-1" id="payroll">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">Payroll<br>Management</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">End-to-end payroll processing, WPS compliance, leave management and salary disbursement for UAE businesses.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="service-card reveal delay-2">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">Bank<br>Reconciliation</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">Accurate monthly bank reconciliation ensuring your financial records match bank statements with precision.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+      <!-- 6 -->
+      <div class="service-card reveal delay-3">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 style="font-family:'Noto Serif',serif;font-size:1.2rem;font-weight:300;color:#F7F3EA;margin-bottom:14px;line-height:1.3;">Admin &amp; Document<br>Support</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.8;color:#7A7570;">Professional admin support, document management, invoice processing and business correspondence handling.</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,175,55,0.6);">Learn More <span>→</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     WHY CHOOSE
+     ======================================================== -->
+<section style="background:#0D0D0D;padding:112px 0;border-top:1px solid rgba(212,175,55,0.07);border-bottom:1px solid rgba(212,175,55,0.07);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+
+      <!-- Why list -->
+      <div class="reveal">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div style="width:40px;height:1px;background:#D4AF37;"></div>
+          <span class="eyebrow">Our Difference</span>
+        </div>
+
+        <h2 style="font-family:'Noto Serif',serif;font-size:clamp(2rem,3.2vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;margin-bottom:56px;">
+          Why Businesses<br><span class="gold-text">Choose Finora</span>
+        </h2>
+
+        <div style="display:flex;flex-direction:column;gap:36px;">
+
+          <div class="why-item">
+            <div class="icon-box" style="margin-bottom:0;flex-shrink:0;margin-top:2px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h4 style="font-family:'Noto Serif',serif;font-size:1.05rem;font-weight:400;color:#EDE8DE;margin-bottom:6px;">Trusted &amp; Confidential</h4>
+              <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.75;color:#7A7570;">Your financial data is handled with the highest discretion and professional confidentiality standards.</p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="icon-box" style="margin-bottom:0;flex-shrink:0;margin-top:2px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div>
+              <h4 style="font-family:'Noto Serif',serif;font-size:1.05rem;font-weight:400;color:#EDE8DE;margin-bottom:6px;">Accurate Reporting</h4>
+              <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.75;color:#7A7570;">Meticulous attention to detail ensures error-free financial reports and statements every time.</p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="icon-box" style="margin-bottom:0;flex-shrink:0;margin-top:2px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <h4 style="font-family:'Noto Serif',serif;font-size:1.05rem;font-weight:400;color:#EDE8DE;margin-bottom:6px;">Flexible Packages</h4>
+              <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.75;color:#7A7570;">Customised service packages to match your business size, budget and specific requirements.</p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="icon-box" style="margin-bottom:0;flex-shrink:0;margin-top:2px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <h4 style="font-family:'Noto Serif',serif;font-size:1.05rem;font-weight:400;color:#EDE8DE;margin-bottom:6px;">Fast Response</h4>
+              <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.75;color:#7A7570;">Prompt communication and quick turnarounds so your business never waits on financial clarity.</p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="icon-box" style="margin-bottom:0;flex-shrink:0;margin-top:2px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <h4 style="font-family:'Noto Serif',serif;font-size:1.05rem;font-weight:400;color:#EDE8DE;margin-bottom:6px;">UAE-Focused Compliance</h4>
+              <p style="font-family:'Inter',sans-serif;font-size:0.85rem;line-height:1.75;color:#7A7570;">Deep expertise in UAE frameworks — FTA, VAT, WPS, and corporate tax requirements.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Visual panel -->
+      <div class="reveal delay-2" style="position:relative;">
+        <div style="position:relative;overflow:hidden;line-height:0;border:1px solid rgba(212,175,55,0.18);box-shadow:0 0 0 1px rgba(212,175,55,0.06),0 32px 80px rgba(0,0,0,0.6);">
+          <img src="brand_assets/560X640.png" alt="Why Finora" style="width:100%;display:block;opacity:0.8;filter:grayscale(20%);">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,0.08) 0%,transparent 50%,rgba(10,10,10,0.5) 100%);"></div>
+        </div>
+        <!-- Corner accents -->
+        <div style="position:absolute;top:20px;right:20px;width:48px;height:48px;border-top:1px solid rgba(212,175,55,0.4);border-right:1px solid rgba(212,175,55,0.4);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:20px;left:20px;width:48px;height:48px;border-bottom:1px solid rgba(212,175,55,0.4);border-left:1px solid rgba(212,175,55,0.4);pointer-events:none;"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     TESTIMONIALS
+     ======================================================== -->
+<section id="insights" style="background:#0D0D0D;padding:112px 0;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+
+    <div style="text-align:center;margin-bottom:72px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;">
+        <div style="width:40px;height:1px;background:#D4AF37;"></div>
+        <span class="eyebrow">Client Voices</span>
+        <div style="width:40px;height:1px;background:#D4AF37;"></div>
+      </div>
+      <h2 style="font-family:'Noto Serif',serif;font-size:clamp(2rem,3.2vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;">
+        Trusted by <span class="gold-text">UAE Businesses</span>
+      </h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,175,55,0.06);">
+
+      <div class="testi-card reveal" style="background:#131313;">
+        <div style="color:#D4AF37;font-size:1rem;letter-spacing:2px;margin-bottom:24px;">★★★★★</div>
+        <blockquote style="font-family:'Noto Serif',serif;font-size:0.95rem;font-style:italic;font-weight:300;line-height:1.85;color:#B8B2A5;margin-bottom:32px;">
+          "Finora transformed how we manage our accounts. Our VAT filings are always on time and we haven't had a single compliance issue since working with them."
+        </blockquote>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif',serif;font-size:1rem;color:#D4AF37;flex-shrink:0;">A</div>
+          <div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:#F7F3EA;">Ahmad Al-Rashid</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A4540;margin-top:2px;">CEO, Al-Rashid Trading Co.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal delay-2" style="background:#161616;border-color:rgba(212,175,55,0.22);">
+        <div style="color:#D4AF37;font-size:1rem;letter-spacing:2px;margin-bottom:24px;">★★★★★</div>
+        <blockquote style="font-family:'Noto Serif',serif;font-size:0.95rem;font-style:italic;font-weight:300;line-height:1.85;color:#B8B2A5;margin-bottom:32px;">
+          "The team at Finora is incredibly professional and discreet. They handle our payroll and bookkeeping with precision. Highly recommend for any growing business."
+        </blockquote>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif',serif;font-size:1rem;color:#D4AF37;flex-shrink:0;">S</div>
+          <div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:#F7F3EA;">Sara Mohammed</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A4540;margin-top:2px;">Director, Meridian Ventures</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal delay-4" style="background:#131313;">
+        <div style="color:#D4AF37;font-size:1rem;letter-spacing:2px;margin-bottom:24px;">★★★★★</div>
+        <blockquote style="font-family:'Noto Serif',serif;font-size:0.95rem;font-style:italic;font-weight:300;line-height:1.85;color:#B8B2A5;margin-bottom:32px;">
+          "Outstanding service. Finora gave us clarity on corporate tax and set up clean accounting systems from the ground up. Worth every dirham."
+        </blockquote>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif',serif;font-size:1rem;color:#D4AF37;flex-shrink:0;">K</div>
+          <div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:#F7F3EA;">Khalid Hassan</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#4A4540;margin-top:2px;">Founder, KH Holdings</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     CTA
+     ======================================================== -->
+<section id="contact" style="position:relative;padding:96px 0;overflow:hidden;">
+  <!-- Gold gradient background -->
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#C29020 0%,#D4AF37 35%,#E8C547 60%,#B88A1D 100%);"></div>
+  <!-- Subtle depth -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(255,255,255,0.07) 0%,transparent 70%);"></div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);background-size:48px 48px;"></div>
+
+  <div style="position:relative;z-index:2;max-width:860px;margin:0 auto;padding:0 32px;text-align:center;">
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px;">
+      <div style="width:40px;height:1px;background:rgba(10,10,10,0.25);"></div>
+      <span style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(10,10,10,0.5);">Get Started</span>
+      <div style="width:40px;height:1px;background:rgba(10,10,10,0.25);"></div>
+    </div>
+
+    <h2 style="font-family:'Noto Serif',serif;font-size:clamp(2rem,4vw,3.4rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;color:#0A0A0A;margin-bottom:20px;">
+      Ready to bring clarity<br>to your business finances?
+    </h2>
+
+    <p style="font-family:'Inter',sans-serif;font-size:1rem;line-height:1.8;color:rgba(10,10,10,0.65);max-width:580px;margin:0 auto 48px;">
+      Speak with Finora Business Solutions and explore flexible accounting and business support packages designed for UAE companies.
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+      <a href="mailto:info@finorame.com" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 36px;background:#0A0A0A;color:#D4AF37;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:opacity 0.25s ease,transform 0.2s ease;" onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-2px)'" onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
+        Schedule Consultation
+      </a>
+      <a href="https://wa.me/971000000000" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 36px;background:transparent;color:#0A0A0A;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;border:2px solid rgba(10,10,10,0.3);transition:background 0.25s ease,border-color 0.25s ease,transform 0.2s ease;" onmouseover="this.style.background='rgba(10,10,10,0.08)';this.style.borderColor='rgba(10,10,10,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(10,10,10,0.3)';this.style.transform='translateY(0)'">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     FOOTER
+     ======================================================== -->
+<footer style="background:#070707;border-top:1px solid rgba(212,175,55,0.08);">
+  <div style="max-width:1280px;margin:0 auto;padding:72px 32px 48px;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px;">
+
+      <!-- Brand -->
+      <div>
+        <div style="margin-bottom:20px;">
+          <img class="brand-logo footer-brand-logo" src="brand_assets/Logo-wordmark.png" alt="Finora Business Solutions">
+        </div>
+        <p style="font-family:'Inter',sans-serif;font-size:0.82rem;line-height:1.85;color:#4A4540;max-width:260px;margin-bottom:24px;">
+          Premium accounting, VAT, bookkeeping, payroll and business support for UAE companies.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;">Dubai, UAE</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:info@finorame.com" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">info@finorame.com</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <a href="https://finorame.com" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">finorame.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h5 style="font-family:'Noto Serif',serif;font-size:0.9rem;font-weight:400;color:#B8B2A5;margin-bottom:20px;letter-spacing:0.04em;">Services</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li><a href="#services" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Accounting &amp; Bookkeeping</a></li>
+          <li><a href="#vat" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">VAT Filing &amp; Compliance</a></li>
+          <li><a href="#services" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Corporate Tax Support</a></li>
+          <li><a href="#payroll" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Payroll Management</a></li>
+          <li><a href="#services" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Bank Reconciliation</a></li>
+          <li><a href="#services" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Admin Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h5 style="font-family:'Noto Serif',serif;font-size:0.9rem;font-weight:400;color:#B8B2A5;margin-bottom:20px;letter-spacing:0.04em;">Company</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li><a href="#about" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">About Us</a></li>
+          <li><a href="#insights" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Insights</a></li>
+          <li><a href="#contact" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h5 style="font-family:'Noto Serif',serif;font-size:0.9rem;font-weight:400;color:#B8B2A5;margin-bottom:20px;letter-spacing:0.04em;">Legal</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li><a href="#" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Privacy Policy</a></li>
+          <li><a href="#" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">Terms of Service</a></li>
+          <li><a href="#vat" style="font-family:'Inter',sans-serif;font-size:0.8rem;color:#4A4540;text-decoration:none;transition:color 0.25s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#4A4540'">VAT &amp; Tax</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="divider" style="margin-bottom:28px;"></div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <p style="font-family:'Inter',sans-serif;font-size:0.72rem;color:#2A2520;">© 2024 Finora Business Solutions. All rights reserved.</p>
+      <p style="font-family:'Inter',sans-serif;font-size:0.72rem;color:#2A2520;">finorame.com · Dubai, UAE</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ========================================================
+     RESPONSIVE STYLES
+     ======================================================== -->
+<style>
+  @media (min-width: 1024px) {
+    #desktop-nav, #desktop-cta { display: flex !important; }
+    #hamburger { display: none !important; }
+  }
+  @media (max-width: 1023px) {
+    .hero-inner { grid-template-columns: 1fr !important; gap: 36px !important; }
+    .hero-logo-wrap { min-height: 0 !important; justify-content: flex-start !important; }
+    .hero-logo { width: min(100%, 420px) !important; }
+    #about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    #services-grid { grid-template-columns: repeat(2,1fr) !important; }
+    footer > div > div:first-child { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 767px) {
+    #metrics-grid { grid-template-columns: repeat(2,1fr) !important; }
+    #metrics-grid > div:nth-child(2) { border-right: none !important; }
+    #services-grid { grid-template-columns: 1fr !important; }
+    footer > div > div:first-child { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<!-- ========================================================
+     JAVASCRIPT
+     ======================================================== -->
+<script>
+  // Mobile menu toggle
+  const ham = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  ham.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  });
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.style.background = 'rgba(10,10,10,0.97)';
+      navbar.style.borderBottomColor = 'rgba(212,175,55,0.14)';
+    } else {
+      navbar.style.background = 'rgba(10,10,10,0.88)';
+      navbar.style.borderBottomColor = 'rgba(212,175,55,0.09)';
+    }
+  }, { passive: true });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
