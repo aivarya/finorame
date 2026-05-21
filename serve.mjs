@@ -6,6 +6,25 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 3000;
 
+function loadEnv() {
+  try {
+    const raw = fs.readFileSync(path.join(__dirname, '.env'), 'utf8');
+    const env = {};
+    for (const line of raw.split('\n')) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const idx = t.indexOf('=');
+      if (idx === -1) continue;
+      env[t.slice(0, idx).trim()] = t.slice(idx + 1).trim();
+    }
+    return env;
+  } catch (_) {
+    return {};
+  }
+}
+
+const env = loadEnv();
+
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css',
@@ -21,6 +40,21 @@ const MIME = {
 
 http.createServer((req, res) => {
   const urlPath = req.url === '/' ? '/index.html' : req.url.split('?')[0];
+
+  if (urlPath === '/env-config.js') {
+    const config = {
+      airtableBaseId:    env.AIRTABLE_BASE_ID    || '',
+      airtableTableName: env.AIRTABLE_TABLE_NAME  || 'Consultations',
+      airtableToken:     env.AIRTABLE_API_TOKEN   || '',
+      emailjsServiceId:  env.EMAILJS_SERVICE_ID   || '',
+      emailjsTemplateId: env.EMAILJS_TEMPLATE_ID  || '',
+      emailjsPublicKey:  env.EMAILJS_PUBLIC_KEY   || ''
+    };
+    res.writeHead(200, { 'Content-Type': 'application/javascript' });
+    res.end('window._FINORA = ' + JSON.stringify(config) + ';');
+    return;
+  }
+
   const filePath = path.join(__dirname, urlPath);
   const ext = path.extname(filePath);
   const contentType = MIME[ext] || 'text/plain';
