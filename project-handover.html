@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Handover — Finora Business Solutions</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0A0A0A;
+      color: #D4C89A;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #D4AF37; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Layout */
+    .page { max-width: 900px; margin: 0 auto; padding: 0 32px 80px; }
+
+    /* Cover */
+    .cover {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid rgba(212,175,55,0.25);
+      margin-bottom: 56px;
+    }
+    .cover-eyebrow {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cover-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 36px;
+      height: 1px;
+      background: #D4AF37;
+    }
+    .cover h1 {
+      font-family: Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: normal;
+      line-height: 1.1;
+      color: #F7F3EA;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .cover h1 span { color: #D4AF37; }
+    .cover-sub {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.9rem;
+      color: #B8B2A5;
+      margin-bottom: 32px;
+    }
+    .cover-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 28px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+      color: #7A7570;
+    }
+    .cover-meta span { color: #B8B2A5; }
+
+    /* TOC */
+    .toc {
+      background: #111111;
+      border: 1px solid rgba(212,175,55,0.15);
+      padding: 28px 32px;
+      margin-bottom: 56px;
+    }
+    .toc-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      padding-left: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 32px;
+    }
+    .toc li {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+      color: #B8B2A5;
+    }
+    .toc a { color: #B8B2A5; }
+    .toc a:hover { color: #D4AF37; }
+
+    /* Section */
+    section { margin-bottom: 56px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+    }
+    .section-num {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #D4AF37;
+      background: rgba(212,175,55,0.08);
+      border: 1px solid rgba(212,175,55,0.25);
+      padding: 4px 10px;
+      flex-shrink: 0;
+    }
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: normal;
+      color: #F7F3EA;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      margin: 28px 0 12px;
+    }
+    p { margin-bottom: 14px; font-size: 0.92rem; color: #B8B2A5; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; margin-bottom: 20px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+    }
+    th {
+      background: rgba(212,175,55,0.08);
+      color: #D4AF37;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid rgba(212,175,55,0.15);
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid rgba(212,175,55,0.1);
+      color: #B8B2A5;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    td code, th code {
+      background: rgba(212,175,55,0.1);
+      color: #D4AF37;
+      padding: 1px 6px;
+      font-size: 0.78rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Code block */
+    pre {
+      background: #0E0E0E;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-left: 3px solid rgba(212,175,55,0.4);
+      padding: 20px 20px 20px 22px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    pre code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: #C9BF8A;
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.83em;
+      background: rgba(212,175,55,0.1);
+      color: #D4AF37;
+      padding: 1px 5px;
+    }
+
+    /* Step list */
+    .steps { list-style: none; padding: 0; }
+    .steps li {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      color: #B8B2A5;
+    }
+    .steps li::before {
+      content: attr(data-n);
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: rgba(212,175,55,0.12);
+      border: 1px solid rgba(212,175,55,0.3);
+      color: #D4AF37;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* Flow diagram */
+    .flow {
+      background: #0E0E0E;
+      border: 1px solid rgba(212,175,55,0.15);
+      padding: 24px 24px 24px 28px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.9;
+      color: #C9BF8A;
+      margin-bottom: 20px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* Colour swatch */
+    .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+      color: #B8B2A5;
+    }
+    .swatch-box {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(212,175,55,0.2);
+      flex-shrink: 0;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+    .badge-gold { color: #D4AF37; border-color: rgba(212,175,55,0.4); background: rgba(212,175,55,0.06); }
+    .badge-green { color: #7EBF7E; border-color: rgba(126,191,126,0.4); background: rgba(126,191,126,0.06); }
+    .badge-amber { color: #E8C547; border-color: rgba(232,197,71,0.4); background: rgba(232,197,71,0.06); }
+    .badge-red { color: #C97070; border-color: rgba(201,112,112,0.4); background: rgba(201,112,112,0.06); }
+
+    /* Callout */
+    .callout {
+      border-left: 3px solid rgba(212,175,55,0.5);
+      background: rgba(212,175,55,0.04);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.84rem;
+      color: #C9BF8A;
+      line-height: 1.65;
+    }
+    .callout-warn {
+      border-left-color: rgba(201,112,112,0.6);
+      background: rgba(201,112,112,0.04);
+      color: #C97070;
+    }
+
+    /* File tree */
+    .filetree {
+      background: #0E0E0E;
+      border: 1px solid rgba(212,175,55,0.12);
+      padding: 20px 24px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.9;
+      color: #B8B2A5;
+      margin-bottom: 20px;
+    }
+    .filetree .dir { color: #D4AF37; }
+    .filetree .warn { color: #C97070; }
+    .filetree .dim { color: #5A5550; }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,0.25), transparent);
+      margin: 48px 0;
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid rgba(212,175,55,0.15);
+      padding-top: 28px;
+      margin-top: 56px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      color: #5A5550;
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      pre, .filetree, .flow { background: #f5f5f5; border-color: #ccc; }
+      pre code, .flow { color: #333; }
+      th { background: #eee; color: #444; }
+      td { color: #333; }
+      h2, .cover h1 { color: #111; }
+      h3, .cover-eyebrow, .section-num, .toc-title { color: #8B6914; }
+      a { color: #8B6914; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ─── COVER ─── -->
+  <div class="cover">
+    <div class="cover-eyebrow">Technical Handover Document</div>
+    <h1>Finora <span>Business Solutions</span><br>Website</h1>
+    <div class="cover-sub">finorame.com — Premium Accounting &amp; Business Support, Dubai UAE</div>
+    <div class="cover-meta">
+      Document date: <span>May 2026</span>
+      &nbsp;·&nbsp;
+      Version: <span>1.0</span>
+      &nbsp;·&nbsp;
+      Repository: <span><a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></span>
+      &nbsp;·&nbsp;
+      Contact: <span><a href="mailto:info@finorame.com">info@finorame.com</a></span>
+    </div>
+  </div>
+
+  <!-- ─── TOC ─── -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#s1">Project Overview</a></li>
+      <li><a href="#s2">Tech Stack</a></li>
+      <li><a href="#s3">Project Structure</a></li>
+      <li><a href="#s4">Local Development Setup</a></li>
+      <li><a href="#s5">Environment Variables</a></li>
+      <li><a href="#s6">How Credentials Are Loaded</a></li>
+      <li><a href="#s7">Consultation Form Flow</a></li>
+      <li><a href="#s8">Airtable Integration</a></li>
+      <li><a href="#s9">EmailJS Integration</a></li>
+      <li><a href="#s10">n8n Automation (Planned)</a></li>
+      <li><a href="#s11">Brand &amp; Design System</a></li>
+      <li><a href="#s12">Deployment Notes</a></li>
+    </ol>
+  </div>
+
+  <!-- ─── 1. OVERVIEW ─── -->
+  <section id="s1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>Project Overview</h2>
+    </div>
+    <p>Finora Business Solutions is a premium accounting, VAT, bookkeeping, payroll and business support firm based in Dubai, UAE. This website (<strong>finorame.com</strong>) is the company's primary digital presence — a single-page marketing site designed to attract and convert UAE business clients.</p>
+    <p>The site is built as a <strong>single static HTML file</strong> (<code>index.html</code>) with all styles and scripts inline. A lightweight Node.js HTTP server (<code>serve.mjs</code>) serves the file locally and provides one special route (<code>/env-config.js</code>) that injects API credentials from a <code>.env</code> file into the browser at runtime — keeping secrets out of source control.</p>
+    <p>Lead capture is handled entirely client-side: the consultation form POSTs directly to the <strong>Airtable REST API</strong> and sends a notification email via <strong>EmailJS</strong>. There is no application backend. All leads are stored in Airtable for later processing by n8n automation.</p>
+  </section>
+
+  <!-- ─── 2. TECH STACK ─── -->
+  <section id="s2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>Tech Stack</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Technology</th><th>Version / Source</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HTML / CSS / JavaScript</strong></td>
+            <td>Vanilla — no build step</td>
+            <td>Entire website in a single <code>index.html</code></td>
+          </tr>
+          <tr>
+            <td><strong>Tailwind CSS</strong></td>
+            <td>v3 — CDN (<code>cdn.tailwindcss.com</code>)</td>
+            <td>Utility class framework; custom config extends brand colours</td>
+          </tr>
+          <tr>
+            <td><strong>Google Fonts</strong></td>
+            <td>CDN — fonts.googleapis.com</td>
+            <td>Noto Serif (300–600 + italic) · Inter (300–700)</td>
+          </tr>
+          <tr>
+            <td><strong>EmailJS</strong></td>
+            <td>v4 — jsDelivr CDN</td>
+            <td>Client-side email to <code>info@finorame.com</code> on form submit</td>
+          </tr>
+          <tr>
+            <td><strong>Airtable REST API</strong></td>
+            <td>v0 — <code>api.airtable.com</code></td>
+            <td>Stores consultation form submissions as records</td>
+          </tr>
+          <tr>
+            <td><strong>Node.js</strong></td>
+            <td>≥ 18 recommended</td>
+            <td>Dev server (<code>serve.mjs</code>) — serves files + injects env config</td>
+          </tr>
+          <tr>
+            <td><strong>Puppeteer</strong></td>
+            <td>^24.4.0 — npm</td>
+            <td>Automated full-page screenshots for design review only</td>
+          </tr>
+          <tr>
+            <td><strong>Git / GitHub</strong></td>
+            <td>github.com/aivarya/finorame</td>
+            <td>Version control and source of truth</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>No build step, no bundler, no framework.</strong> The site runs as a plain HTML file. Any developer can open it in a browser or serve it with any HTTP server. The only Node.js dependency (Puppeteer) is used exclusively for screenshot automation — it is not required to run the website.
+    </div>
+  </section>
+
+  <!-- ─── 3. PROJECT STRUCTURE ─── -->
+  <section id="s3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>Project Structure</h2>
+    </div>
+    <div class="filetree">
+<span class="dir">finorame/</span>
+├── <span class="dir">index.html</span>              Complete website — HTML, CSS, JS all inline
+├── serve.mjs               Node.js HTTP dev server + /env-config.js route
+├── screenshot.mjs          Puppeteer screenshot tool (design review only)
+├── package.json            npm manifest — only dependency: puppeteer
+├── <span class="warn">.env</span>                   ⚠ NEVER COMMIT — real API credentials
+├── .env.example            Safe credential template — commit this
+├── .gitignore              Excludes: .env · node_modules/ · temporary screenshots/
+├── claude.md               AI assistant project instructions
+├── <span class="dim">node_modules/</span>           Puppeteer install (gitignored)
+├── <span class="dim">temporary screenshots/</span>  Auto-generated screenshots (gitignored)
+└── <span class="dir">brand_assets/</span>
+    ├── Logo.png                  Square logo mark
+    ├── Logo-wordmark.png         Text logo — used in nav &amp; footer
+    ├── Logo-hero.png             Large animated hero logo
+    ├── 620X700.png               About section photo
+    ├── 560X640.png               Why Choose section photo
+    ├── Business card.png         Business card preview
+    ├── finora_business_card_corrected_matte.pdf
+    └── finora_front_redesign.html
+    </div>
+    <div class="callout callout-warn">
+      The <code>.env</code> file contains live API keys and must <strong>never</strong> be committed to Git. It is listed in <code>.gitignore</code>. Use <code>.env.example</code> as the template when setting up on a new machine.
+    </div>
+  </section>
+
+  <!-- ─── 4. LOCAL DEV SETUP ─── -->
+  <section id="s4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>Local Development Setup</h2>
+    </div>
+    <ol class="steps">
+      <li data-n="1"><div><strong>Clone the repository</strong><br><code>git clone https://github.com/aivarya/finorame.git</code><br>Then <code>cd finorame</code></div></li>
+      <li data-n="2"><div><strong>Install dependencies</strong><br><code>npm install</code><br>This installs Puppeteer (used only for screenshots). No other packages needed.</div></li>
+      <li data-n="3"><div><strong>Create your <code>.env</code> file</strong><br>Copy the template: <code>cp .env.example .env</code><br>Fill in your real Airtable and EmailJS credentials (see Section 5).</div></li>
+      <li data-n="4"><div><strong>Start the dev server</strong><br><code>node serve.mjs</code><br>Server starts at <code>http://localhost:3000</code></div></li>
+      <li data-n="5"><div><strong>Open in browser</strong><br>Navigate to <code>http://localhost:3000</code><br>The site loads with credentials injected via <code>/env-config.js</code></div></li>
+      <li data-n="6"><div><strong>(Optional) Take a screenshot</strong><br><code>node screenshot.mjs http://localhost:3000 my-label</code><br>Saved to <code>temporary screenshots/screenshot-N-my-label.png</code></div></li>
+    </ol>
+    <div class="callout">
+      The server must be running at <code>localhost:3000</code> (not a <code>file:///</code> URL) for the <code>/env-config.js</code> endpoint to work and for credentials to be loaded correctly.
+    </div>
+  </section>
+
+  <!-- ─── 5. ENV VARS ─── -->
+  <section id="s5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>Environment Variables</h2>
+    </div>
+    <p>All six variables must be present in <code>.env</code> for the form to work end-to-end.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Variable</th><th>Service</th><th>Where to Find / Format</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>AIRTABLE_BASE_ID</code></td>
+            <td>Airtable</td>
+            <td>Open your base → URL shows <code>airtable.com/<strong>appXXXXXXXX</strong>/...</code> — that is the Base ID</td>
+          </tr>
+          <tr>
+            <td><code>AIRTABLE_TABLE_NAME</code></td>
+            <td>Airtable</td>
+            <td>Default: <code>Consultations</code> — must match the table name exactly (case-sensitive)</td>
+          </tr>
+          <tr>
+            <td><code>AIRTABLE_API_TOKEN</code></td>
+            <td>Airtable</td>
+            <td>airtable.com/create/tokens → Personal Access Token<br>Scope: <code>data.records:write</code> on this base only</td>
+          </tr>
+          <tr>
+            <td><code>EMAILJS_SERVICE_ID</code></td>
+            <td>EmailJS</td>
+            <td>emailjs.com → Email Services → your connected service → Service ID</td>
+          </tr>
+          <tr>
+            <td><code>EMAILJS_TEMPLATE_ID</code></td>
+            <td>EmailJS</td>
+            <td>emailjs.com → Email Templates → your template → Template ID</td>
+          </tr>
+          <tr>
+            <td><code>EMAILJS_PUBLIC_KEY</code></td>
+            <td>EmailJS</td>
+            <td>emailjs.com → Account → General → Public Key</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Example .env file</h3>
+    <pre><code>AIRTABLE_BASE_ID=appfO9KcyKCqvigDU
+AIRTABLE_TABLE_NAME=Consultations
+AIRTABLE_API_TOKEN=patXXXXXXXXXXXXXX.XXXXXXXX...
+EMAILJS_SERVICE_ID=service_63wuxhw
+EMAILJS_TEMPLATE_ID=template_tyjm9qu
+EMAILJS_PUBLIC_KEY=72-fPQVl8Gl4YC3_J</code></pre>
+    <h3>Airtable Table Setup</h3>
+    <p>The <code>Consultations</code> table in your Airtable base must have these fields:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Field Name</th><th>Airtable Type</th></tr></thead>
+        <tbody>
+          <tr><td><code>Timestamp</code></td><td>Date (include time)</td></tr>
+          <tr><td><code>Full Name</code></td><td>Single line text</td></tr>
+          <tr><td><code>Email</code></td><td>Email</td></tr>
+          <tr><td><code>Mobile</code></td><td>Phone number</td></tr>
+          <tr><td><code>Service</code></td><td>Single select</td></tr>
+          <tr><td><code>Message</code></td><td>Long text</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>EmailJS Template Variables</h3>
+    <p>Your EmailJS template must use these variable names in double-braces:</p>
+    <pre><code>{{fullName}}   {{email}}   {{mobile}}   {{service}}   {{message}}</code></pre>
+    <p>Recommended subject line: <code>New Consultation Request — {{service}}</code></p>
+  </section>
+
+  <!-- ─── 6. HOW CREDENTIALS ARE LOADED ─── -->
+  <section id="s6">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>How Credentials Are Loaded</h2>
+    </div>
+    <p>Since the site is a static HTML file with no server-side rendering, credentials can't be embedded at build time. The pattern used here is:</p>
+    <ol class="steps">
+      <li data-n="1"><div><code>serve.mjs</code> reads <code>.env</code> from disk when the server starts</div></li>
+      <li data-n="2"><div>When the browser requests <code>/env-config.js</code>, the server responds with a JavaScript file that sets <code>window._FINORA</code></div></li>
+      <li data-n="3"><div><code>index.html</code> loads <code>&lt;script src="/env-config.js"&gt;&lt;/script&gt;</code> in <code>&lt;head&gt;</code></div></li>
+      <li data-n="4"><div>The form submission function reads credentials from <code>window._FINORA</code> at submit time</div></li>
+    </ol>
+    <h3>Response from /env-config.js</h3>
+    <pre><code>window._FINORA = {
+  airtableBaseId:    "appfO9KcyKCqvigDU",
+  airtableTableName: "Consultations",
+  airtableToken:     "patXXXXXXXXXXXXXX...",
+  emailjsServiceId:  "service_63wuxhw",
+  emailjsTemplateId: "template_tyjm9qu",
+  emailjsPublicKey:  "72-fPQVl8Gl4YC3_J"
+};</code></pre>
+    <div class="callout callout-warn">
+      <strong>Security note:</strong> These values ARE visible in the browser (DevTools → Network → env-config.js). The <code>.env</code> pattern prevents credentials from being committed to Git — it does not hide them from someone viewing page source. The Airtable token is scoped to <code>data.records:write</code> on this base only, limiting exposure to someone being able to add records (not read or delete them).
+    </div>
+    <div class="callout">
+      <strong>For production hosting</strong> (Render, Railway, etc.), set the six variables as environment variables in the hosting dashboard. The <code>serve.mjs</code> server reads them via the same <code>process.env</code> mechanism.
+    </div>
+  </section>
+
+  <!-- ─── 7. FORM FLOW ─── -->
+  <section id="s7">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <h2>Consultation Form Flow</h2>
+    </div>
+    <h3>Trigger Points</h3>
+    <p>The consultation modal can be opened from any of these:</p>
+    <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+      <li><span class="badge badge-gold">Navbar CTA</span></li>
+      <li><span class="badge badge-gold">Mobile Nav CTA</span></li>
+      <li><span class="badge badge-gold">Hero — Get Free Consultation</span></li>
+      <li><span class="badge badge-gold">CTA Section — Schedule Consultation</span></li>
+      <li><span class="badge badge-gold">Any Service Card click</span></li>
+    </ul>
+    <p>When triggered from a service card, the Service dropdown is automatically pre-selected with that service.</p>
+    <h3>Form Fields</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Required</th></tr></thead>
+        <tbody>
+          <tr><td>Full Name</td><td><code>input[type=text]</code></td><td>Yes</td></tr>
+          <tr><td>Email Address</td><td><code>input[type=email]</code></td><td>Yes</td></tr>
+          <tr><td>Mobile — Country Code</td><td><code>select</code> (15 countries with flags)</td><td>Yes (defaults to 🇦🇪 +971)</td></tr>
+          <tr><td>Mobile — Number</td><td><code>input[type=tel]</code></td><td>Yes</td></tr>
+          <tr><td>Service Looking For</td><td><code>select</code> (6 options)</td><td>Yes</td></tr>
+          <tr><td>Brief Description</td><td><code>textarea</code></td><td>No</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Submission Flow</h3>
+    <div class="flow">User opens modal (optionally with pre-selected service)
+         │
+         ▼
+Fills form → clicks "Submit Request"
+         │
+         ▼
+submitConsult() fires
+         │
+         ├──────────────────────────────────┐
+         ▼                                  ▼
+POST → Airtable API               emailjs.send()
+(lead saved to spreadsheet)   (notification to info@finorame.com)
+         │                                  │
+         └──────────────┬───────────────────┘
+                        ▼
+            Both wrapped in try/catch
+            (one failing does not block the other)
+                        │
+                        ▼
+                 Success state shown
+                 "Request Received"
+                        │
+                        ▼
+            User clicks Close → modal dismisses</div>
+    <h3>Modal Close Behaviour</h3>
+    <p>The modal closes <strong>only</strong> via the ✕ button (top-right) or the "Close" button on the success screen. Clicking the backdrop or pressing Escape does <em>not</em> close it — this prevents accidental loss of partially filled form data.</p>
+  </section>
+
+  <!-- ─── 8. AIRTABLE ─── -->
+  <section id="s8">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <h2>Airtable Integration</h2>
+    </div>
+    <p>Each form submission creates a new record in the <code>Consultations</code> table of the <strong>Finora Leads</strong> Airtable base.</p>
+    <h3>API Call</h3>
+    <pre><code>POST https://api.airtable.com/v0/{airtableBaseId}/{airtableTableName}
+
+Headers:
+  Authorization: Bearer {airtableToken}
+  Content-Type:  application/json
+
+Body:
+{
+  "fields": {
+    "Timestamp": "2026-05-21T10:30:00.000Z",
+    "Full Name": "Ahmed Al-Rashid",
+    "Email":     "ahmed@example.com",
+    "Mobile":    "+971 50 123 4567",
+    "Service":   "VAT Filing &amp; Compliance",
+    "Message":   "Need help with Q1 VAT return"
+  }
+}</code></pre>
+    <h3>Access Token Permissions</h3>
+    <p>The Personal Access Token must have:</p>
+    <ul style="padding-left:20px;font-family:Arial,sans-serif;font-size:0.85rem;color:#B8B2A5;margin-bottom:14px;">
+      <li>Scope: <code>data.records:write</code></li>
+      <li>Base access: <em>this base only</em> (not all bases)</li>
+    </ul>
+    <p>This limits exposure — a leaked token can only add records to this specific base, not read, delete, or access other bases.</p>
+    <h3>Accessing Leads</h3>
+    <p>Log into <a href="https://airtable.com" target="_blank">airtable.com</a> with the account that owns the <strong>Finora Leads</strong> base. All form submissions appear in the <code>Consultations</code> table in real time.</p>
+  </section>
+
+  <!-- ─── 9. EMAILJS ─── -->
+  <section id="s9">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <h2>EmailJS Integration</h2>
+    </div>
+    <p>EmailJS sends a notification email to <code>info@finorame.com</code> each time the consultation form is submitted. No backend or SMTP server is required — the email is sent directly from the user's browser.</p>
+    <h3>Library</h3>
+    <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"&gt;&lt;/script&gt;</code></pre>
+    <h3>How It Sends</h3>
+    <pre><code>emailjs.send(serviceId, templateId, {
+  fullName: "Ahmed Al-Rashid",
+  email:    "ahmed@example.com",
+  mobile:   "+971 50 123 4567",
+  service:  "VAT Filing &amp; Compliance",
+  message:  "Need help with Q1 VAT return"
+}, publicKey);</code></pre>
+    <h3>Free Tier Limits</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Plan</th><th>Emails / Month</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Free</td><td>200</td><td>Sufficient for early stage; upgrade if volume grows</td></tr>
+          <tr><td>Personal (paid)</td><td>1,000+</td><td>Remove EmailJS branding from emails</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Managing Templates</h3>
+    <p>Log into <a href="https://emailjs.com" target="_blank">emailjs.com</a> → Email Templates → edit <code>template_tyjm9qu</code> to customise the email layout, subject, or add/remove fields.</p>
+  </section>
+
+  <!-- ─── 10. N8N ─── -->
+  <section id="s10">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <h2>n8n Automation (Planned)</h2>
+    </div>
+    <span class="badge badge-amber">Planned — Not Yet Live</span>
+    <p style="margin-top:14px;">n8n is a self-hosted workflow automation tool. The client runs an instance locally. The planned workflow will:</p>
+    <ol class="steps">
+      <li data-n="1"><div>Monitor the Airtable <code>Consultations</code> table for new records (polling or webhook)</div></li>
+      <li data-n="2"><div>Compose a personalised reply email to the lead using their submitted details</div></li>
+      <li data-n="3"><div>Send the reply via Outlook using Microsoft account <code>jyothi@finorame.com</code></div></li>
+    </ol>
+    <div class="callout">
+      <strong>Important:</strong> The website form does <strong>not depend on n8n</strong>. Leads are captured in Airtable and the internal notification is sent via EmailJS regardless of whether n8n is online. n8n is only responsible for the automated reply back to the lead.
+    </div>
+    <h3>n8n Credentials to Configure</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Credential</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Microsoft / Outlook</td><td>Account: <code>jyothi@finorame.com</code></td></tr>
+          <tr><td>Airtable</td><td>Same Personal Access Token as <code>AIRTABLE_API_TOKEN</code> above (add <code>data.records:read</code> scope for n8n)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── 11. BRAND ─── -->
+  <section id="s11">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <h2>Brand &amp; Design System</h2>
+    </div>
+    <h3>Colour Palette</h3>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch-box" style="background:#D4AF37;"></div><div><strong>#D4AF37</strong><br><small>Primary Gold</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#B88A1D;"></div><div><strong>#B88A1D</strong><br><small>Rich Gold</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#0A0A0A;border-color:rgba(212,175,55,0.4)"></div><div><strong>#0A0A0A</strong><br><small>Matte Black (bg)</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#141414;"></div><div><strong>#141414</strong><br><small>Charcoal (cards)</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#1A1A1A;"></div><div><strong>#1A1A1A</strong><br><small>Elevated Surface</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#F7F3EA;"></div><div><strong>#F7F3EA</strong><br><small>Soft White (headings)</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#B8B2A5;"></div><div><strong>#B8B2A5</strong><br><small>Muted Text</small></div></div>
+      <div class="swatch"><div class="swatch-box" style="background:#7A7570;"></div><div><strong>#7A7570</strong><br><small>Dim Text</small></div></div>
+    </div>
+    <h3>Typography</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Role</th><th>Font</th><th>Weight(s)</th></tr></thead>
+        <tbody>
+          <tr><td>Section headings, hero, quotes</td><td>Noto Serif</td><td>300 (light), 400, 500, 600</td></tr>
+          <tr><td>Body, labels, buttons, nav</td><td>Inter</td><td>300, 400, 500, 600, 700</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Key Design Rules</h3>
+    <ul style="padding-left:20px;font-family:Arial,sans-serif;font-size:0.85rem;color:#B8B2A5;line-height:1.9;">
+      <li>Never use <code>transition-all</code> — always specify individual properties</li>
+      <li>No Tailwind blue/indigo/purple as accent colours</li>
+      <li>Shadows use layered, low-opacity gold tints</li>
+      <li>Animate only <code>transform</code> and <code>opacity</code></li>
+      <li>Every interactive element must have hover, focus-visible, and active states</li>
+    </ul>
+    <h3>Services Offered (used in form dropdown)</h3>
+    <ul style="padding-left:20px;font-family:Arial,sans-serif;font-size:0.85rem;color:#B8B2A5;line-height:1.9;">
+      <li>Accounting &amp; Bookkeeping</li>
+      <li>VAT Filing &amp; Compliance</li>
+      <li>Corporate Tax Support</li>
+      <li>Payroll Management</li>
+      <li>Bank Reconciliation</li>
+      <li>Admin &amp; Document Support</li>
+    </ul>
+    <h3>Contact Details</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Channel</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Website</td><td><a href="https://finorame.com" target="_blank">finorame.com</a></td></tr>
+          <tr><td>Email</td><td><a href="mailto:info@finorame.com">info@finorame.com</a></td></tr>
+          <tr><td>WhatsApp</td><td>+971 50 155 3290 · <a href="https://wa.me/971501553290" target="_blank">wa.me/971501553290</a></td></tr>
+          <tr><td>Location</td><td>Dubai, UAE</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── 12. DEPLOYMENT ─── -->
+  <section id="s12">
+    <div class="section-header">
+      <div class="section-num">12</div>
+      <h2>Deployment Notes</h2>
+    </div>
+    <p>The website currently runs locally via <code>node serve.mjs</code>. To publish it publicly, a Node.js hosting environment is required so that <code>serve.mjs</code> can run and serve the <code>/env-config.js</code> endpoint.</p>
+    <h3>Recommended: Render (Free Tier)</h3>
+    <ol class="steps">
+      <li data-n="1"><div>Connect your GitHub repo (<code>aivarya/finorame</code>) to <a href="https://render.com" target="_blank">render.com</a></div></li>
+      <li data-n="2"><div>Create a <strong>Web Service</strong> — Runtime: Node · Build command: <code>npm install</code> · Start command: <code>node serve.mjs</code></div></li>
+      <li data-n="3"><div>Add all 6 environment variables in Render's dashboard (Environment tab) — no <code>.env</code> file needed on the server</div></li>
+      <li data-n="4"><div>Deploy — Render provides a public HTTPS URL. Point your domain <code>finorame.com</code> to it via a CNAME record</div></li>
+    </ol>
+    <h3>Why Not Static Hosting?</h3>
+    <div class="callout callout-warn">
+      GitHub Pages, Netlify, and Vercel serve purely static files. They cannot run <code>serve.mjs</code> or respond to the <code>/env-config.js</code> route. Deploying to these platforms as-is will cause the form to silently fail (credentials never loaded). A Node.js host is required, OR the <code>/env-config.js</code> pattern must be replaced with build-time env injection (e.g. Vite's <code>import.meta.env</code>).
+    </div>
+    <h3>Custom Domain (finorame.com)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Step</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Add <code>finorame.com</code> as a custom domain in Render dashboard</td></tr>
+          <tr><td>2</td><td>Render provides a CNAME target (e.g. <code>finorame.onrender.com</code>)</td></tr>
+          <tr><td>3</td><td>In your domain registrar (GoDaddy / Namecheap / Cloudflare etc.) add a CNAME record: <code>finorame.com → finorame.onrender.com</code></td></tr>
+          <tr><td>4</td><td>Render provisions an SSL certificate automatically (Let's Encrypt)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Key Accounts</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>GitHub</td><td><a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></td></tr>
+          <tr><td>Airtable</td><td>Base: <strong>Finora Leads</strong> · Table: <strong>Consultations</strong></td></tr>
+          <tr><td>EmailJS</td><td>Service: <code>service_63wuxhw</code> · Template: <code>template_tyjm9qu</code></td></tr>
+          <tr><td>n8n</td><td>Self-hosted locally · Microsoft account: <code>jyothi@finorame.com</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ─── FOOTER ─── -->
+  <div class="doc-footer">
+    <div>Finora Business Solutions · Project Handover v1.0 · May 2026</div>
+    <div>finorame.com · <a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></div>
+  </div>
+
+</div>
+</body>
+</html>
