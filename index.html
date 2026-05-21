@@ -1132,6 +1132,9 @@
     const payload = Object.fromEntries(fd.entries());
     const cfg = window._FINORA || {};
 
+    if (!cfg.airtableToken) console.warn('[Finora] No Airtable token — is node serve.mjs running?');
+    if (!cfg.emailjsPublicKey) console.warn('[Finora] No EmailJS key — is node serve.mjs running?');
+
     if (cfg.airtableToken && cfg.airtableBaseId) {
       try {
         await fetch('https://api.airtable.com/v0/' + cfg.airtableBaseId + '/' + encodeURIComponent(cfg.airtableTableName || 'Consultations'), {
@@ -1146,7 +1149,7 @@
             'Message': payload.message || ''
           }})
         });
-      } catch(_) {}
+      } catch(err) { console.error('[Finora] Airtable error:', err); }
     }
 
     if (window.emailjs && cfg.emailjsServiceId) {
@@ -1157,8 +1160,8 @@
           mobile: payload.countryCode + ' ' + payload.phone,
           service: payload.service,
           message: payload.message || ''
-        }, cfg.emailjsPublicKey);
-      } catch(_) {}
+        }, { publicKey: cfg.emailjsPublicKey });
+      } catch(err) { console.error('[Finora] EmailJS error:', err); }
     }
 
     document.getElementById('consultForm').style.display = 'none';
