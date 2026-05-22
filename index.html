@@ -1135,48 +1135,57 @@
     if (!cfg.airtableToken) console.warn('[Finora] No Airtable token — is node serve.mjs running?');
     if (!cfg.emailjsPublicKey) console.warn('[Finora] No EmailJS key — is node serve.mjs running?');
 
-    if (cfg.airtableToken && cfg.airtableBaseId) {
-      try {
-        await fetch('https://api.airtable.com/v0/' + cfg.airtableBaseId + '/' + encodeURIComponent(cfg.airtableTableName || 'Consultations'), {
+    const mobile = payload.countryCode + ' ' + payload.phone;
+
+    const airtablePromise = (cfg.airtableToken && cfg.airtableBaseId)
+      ? fetch('https://api.airtable.com/v0/' + cfg.airtableBaseId + '/' + encodeURIComponent(cfg.airtableTableName || 'Consultations'), {
           method: 'POST',
           headers: { 'Authorization': 'Bearer ' + cfg.airtableToken, 'Content-Type': 'application/json' },
           body: JSON.stringify({ fields: {
             'Timestamp': new Date().toISOString(),
             'Full Name': payload.fullName,
             'Email': payload.email,
-            'Mobile': payload.countryCode + ' ' + payload.phone,
+            'Mobile': mobile,
             'Service': payload.service,
             'Message': payload.message || ''
           }})
-        });
-      } catch(err) { console.error('[Finora] Airtable error:', err); }
-    }
-
-    if (window.emailjs && cfg.emailjsServiceId) {
-      try {
-        await window.emailjs.send(cfg.emailjsServiceId, cfg.emailjsTemplateId, {
-          fullName: payload.fullName,
-          email: payload.email,
-          mobile: payload.countryCode + ' ' + payload.phone,
-          service: payload.service,
-          message: payload.message || ''
-        }, { publicKey: cfg.emailjsPublicKey });
-      } catch(err) { console.error('[Finora] EmailJS error:', err); }
-    }
-
-    if (cfg.n8nWebhookUrl) {
-      fetch(cfg.n8nWebhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: payload.fullName,
-          email: payload.email,
-          mobile: payload.countryCode + ' ' + payload.phone,
-          service: payload.service,
-          message: payload.message || ''
         })
-      }).catch(err => console.error('[Finora] N8N webhook error:', err));
-    }
+      : Promise.resolve();
+
+    const emailjsPromise = (window.emailjs && cfg.emailjsServiceId)
+      ? window.emailjs.send(cfg.emailjsServiceId, cfg.emailjsTemplateId, {
+          fullName: payload.fullName,
+          email: payload.email,
+          mobile: mobile,
+          service: payload.service,
+          message: payload.message || ''
+        }, { publicKey: cfg.emailjsPublicKey })
+      : Promise.resolve();
+
+    const n8nPromise = cfg.n8nWebhookUrl
+      ? fetch(cfg.n8nWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_name: payload.fullName,
+            email: payload.email,
+            mobile: mobile,
+            service: payload.service,
+            description: payload.message || ''
+          })
+        })
+      : Promise.resolve();
+
+    const [airtableResult, emailjsResult, n8nResult] = await Promise.allSettled([
+      airtablePromise,
+      emailjsPromise,
+      n8nPromise
+    ]);
+
+    if (airtableResult.status === 'rejected') console.error('[Finora] Airtable error:', airtableResult.reason);
+    if (emailjsResult.status === 'rejected') console.error('[Finora] EmailJS error:', emailjsResult.reason);
+    if (n8nResult.status === 'fulfilled') console.log('[Finora] N8N webhook sent successfully');
+    if (n8nResult.status === 'rejected') console.warn('[Finora] N8N webhook failed (non-critical):', n8nResult.reason);
 
     document.getElementById('consultForm').style.display = 'none';
     document.getElementById('consultSuccess').style.display = 'block';
