@@ -1164,6 +1164,20 @@
       } catch(err) { console.error('[Finora] EmailJS error:', err); }
     }
 
+    if (cfg.n8nWebhookUrl) {
+      fetch(cfg.n8nWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: payload.fullName,
+          email: payload.email,
+          mobile: payload.countryCode + ' ' + payload.phone,
+          service: payload.service,
+          message: payload.message || ''
+        })
+      }).catch(err => console.error('[Finora] N8N webhook error:', err));
+    }
+
     document.getElementById('consultForm').style.display = 'none';
     document.getElementById('consultSuccess').style.display = 'block';
     btn.disabled = false;

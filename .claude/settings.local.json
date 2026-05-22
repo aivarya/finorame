@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node serve.mjs)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-v1)",
+      "Bash(npm list *)",
+      "Read(//c/Users/Sreyas/.cache/**)",
+      "Read(//c/Users/Sreyas/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-v3)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-v4)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-v5)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-final)",
+      "Bash(python -c \"import fitz; print\\('PyMuPDF:', fitz.__version__\\)\")",
+      "Bash(python -c \"import reportlab; print\\('ReportLab:', reportlab.Version\\)\")",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow: OK'\\)\")",
+      "Bash(python redesign_card_front.py)",
+      "Bash(set PYTHONIOENCODING=utf-8)",
+      "Bash(python -c ' *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(claude doctor *)",
+      "Bash(claude --version)",
+      "Bash(npm show *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(node screenshot.mjs http://localhost:3000 finora-updated)",
+      "Bash(node -e ' *)",
+      "Bash(node *)",
+      "Bash(curl *)",
+      "Bash(git check-ignore *)"
+    ]
+  }
+}
