@@ -1162,19 +1162,17 @@
         }, { publicKey: cfg.emailjsPublicKey })
       : Promise.resolve();
 
-    const n8nPromise = cfg.n8nWebhookUrl
-      ? fetch(cfg.n8nWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            full_name: payload.fullName,
-            email: payload.email,
-            mobile: mobile,
-            service: payload.service,
-            description: payload.message || ''
-          })
-        })
-      : Promise.resolve();
+    const n8nPromise = fetch('/api/n8n', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        full_name: payload.fullName,
+        email: payload.email,
+        mobile: mobile,
+        service: payload.service,
+        description: payload.message || ''
+      })
+    });
 
     const [airtableResult, emailjsResult, n8nResult] = await Promise.allSettled([
       airtablePromise,
