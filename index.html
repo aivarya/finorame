@@ -108,15 +108,30 @@
     .nav-link:hover::after { width: 100%; }
     .nav-link:focus-visible { outline: 1px solid #D4AF37; outline-offset: 4px; border-radius: 2px; }
 
-    .brand-logo {
-      display: block;
-      width: 142px;
-      height: auto;
-      filter: saturate(1.08) contrast(1.08);
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .footer-brand-logo {
-      width: 165px;
+    .brand-logo-text .wordmark {
+      font-family: 'Noto Serif', serif;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      background: linear-gradient(135deg, #C9A227 0%, #F0D060 45%, #B88A1D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .brand-logo-text .tagline {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      color: #B8B2A5;
+      text-transform: uppercase;
+      line-height: 1;
     }
 
     .hero-inner {
@@ -139,26 +154,52 @@
     }
 
     .hero-logo {
-      display: block;
-      width: min(100%, 500px);
-      height: auto;
-      mix-blend-mode: screen;
-      opacity: 0.92;
-      filter: saturate(1.2) contrast(1.18) drop-shadow(0 0 42px rgba(212,175,55,0.24));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 460px);
       animation: heroLogoBreathe 5.5s ease-in-out infinite;
       transform-origin: center;
     }
 
+    .hero-logo-emblem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 60px;
+      border: 1px solid rgba(212,175,55,0.22);
+      position: relative;
+      background: radial-gradient(ellipse at center, rgba(212,175,55,0.05) 0%, transparent 70%);
+    }
+
+    .hero-logo-emblem::before,
+    .hero-logo-emblem::after {
+      content: '';
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-color: rgba(212,175,55,0.5);
+      border-style: solid;
+    }
+
+    .hero-logo-emblem::before {
+      top: -1px; left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .hero-logo-emblem::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 1px 1px 0;
+    }
+
     @keyframes heroLogoBreathe {
       0%, 100% {
-        opacity: 0.86;
+        opacity: 0.82;
         transform: scale(0.985);
-        filter: saturate(1.12) contrast(1.12) drop-shadow(0 0 28px rgba(212,175,55,0.18));
       }
       50% {
-        opacity: 0.96;
+        opacity: 0.98;
         transform: scale(1.02);
-        filter: saturate(1.28) contrast(1.2) drop-shadow(0 0 54px rgba(212,175,55,0.34));
       }
     }
 
@@ -376,7 +417,10 @@
 
       <!-- Logo -->
       <a href="#" style="text-decoration:none;line-height:1;flex-shrink:0;display:flex;align-items:center;" aria-label="Jyorah Business Solutions home">
-        <img class="brand-logo" src="brand_assets/Logo-wordmark.png" alt="Jyorah Business Solutions">
+        <div class="brand-logo-text">
+          <span class="wordmark" style="font-size:1.1rem;">JYORAH</span>
+          <span class="tagline" style="font-size:0.47rem;">Business Solutions</span>
+        </div>
       </a>
 
       <!-- Desktop nav -->
@@ -484,7 +528,15 @@
       </div>
     </div>
     <div class="hero-logo-wrap" aria-hidden="true">
-      <img class="hero-logo" src="brand_assets/Logo-hero.png" alt="">
+      <div class="hero-logo">
+        <div class="hero-logo-emblem">
+          <div style="width:48px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.7),transparent);margin-bottom:28px;"></div>
+          <div style="width:6px;height:6px;background:#D4AF37;transform:rotate(45deg);margin-bottom:28px;opacity:0.8;"></div>
+          <div style="font-family:'Noto Serif',serif;font-size:3.8rem;font-weight:300;letter-spacing:0.38em;background:linear-gradient(135deg,#C9A227 0%,#F0D060 45%,#B88A1D 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;text-align:center;padding-right:0.38em;">JYORAH</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.48em;color:#B8B2A5;text-transform:uppercase;text-align:center;margin-top:16px;padding-right:0.48em;">Business Solutions</div>
+          <div style="width:48px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.7),transparent);margin-top:28px;"></div>
+        </div>
+      </div>
     </div>
     </div>
   </div>
@@ -872,7 +924,10 @@
       <!-- Brand -->
       <div>
         <div style="margin-bottom:20px;">
-          <img class="brand-logo footer-brand-logo" src="brand_assets/Logo-wordmark.png" alt="Jyorah Business Solutions">
+          <div class="brand-logo-text">
+            <span class="wordmark" style="font-size:1.3rem;">JYORAH</span>
+            <span class="tagline" style="font-size:0.5rem;">Business Solutions</span>
+          </div>
         </div>
         <p style="font-family:'Inter',sans-serif;font-size:0.82rem;line-height:1.85;color:#7A7570;max-width:260px;margin-bottom:24px;">
           Premium accounting, VAT, bookkeeping, payroll and business support for UAE companies.
@@ -1042,7 +1097,9 @@
   @media (max-width: 1023px) {
     .hero-inner { grid-template-columns: 1fr !important; gap: 36px !important; }
     .hero-logo-wrap { min-height: 0 !important; justify-content: flex-start !important; }
-    .hero-logo { width: min(100%, 420px) !important; }
+    .hero-logo { width: min(100%, 380px) !important; }
+    .hero-logo-emblem { padding: 36px 40px !important; }
+    .hero-logo-emblem div[style*="3.8rem"] { font-size: 2.8rem !important; }
     #about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
     #services-grid { grid-template-columns: repeat(2,1fr) !important; }
     footer > div > div:first-child { grid-template-columns: 1fr 1fr !important; }
