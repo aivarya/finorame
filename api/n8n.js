@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
   if (!webhookUrl) {
-    console.error('[Finora/n8n-proxy] N8N_WEBHOOK_URL is not set');
+    console.error('[Jyorah/n8n-proxy] N8N_WEBHOOK_URL is not set');
     return res.status(503).json({ error: 'Webhook not configured' });
   }
 
@@ -16,12 +16,12 @@ export default async function handler(req, res) {
       body: JSON.stringify(req.body)
     });
 
-    console.log('[Finora/n8n-proxy] Webhook response status:', response.status);
+    console.log('[Jyorah/n8n-proxy] Webhook response status:', response.status);
 
     const text = await response.text();
     return res.status(response.status).send(text);
   } catch (err) {
-    console.error('[Finora/n8n-proxy] Failed to reach webhook:', err.message);
+    console.error('[Jyorah/n8n-proxy] Failed to reach webhook:', err.message);
     return res.status(502).json({ error: 'Webhook unreachable' });
   }
 }

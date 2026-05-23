@@ -1,5 +1,13 @@
 {
   "rewrites": [
     { "source": "/env-config.js", "destination": "/api/env-config" }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "finorame.com" }],
+      "destination": "https://jyorah.com/$1",
+      "permanent": true
+    }
   ]
 }

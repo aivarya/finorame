@@ -1,11 +1,11 @@
-# CLAUDE.md — Finora Business Solutions Website Rules
+# CLAUDE.md — Jyorah Business Solutions Website Rules
 
 ## Project Context
 
 Create a premium website for:
 
-**Company:** Finora Business Solutions
-**Domain:** finorame.com
+**Company:** Jyorah Business Solutions
+**Domain:** jyorah.com
 **Location:** Dubai / UAE / Middle East
 **Business Type:** Accounting, bookkeeping, VAT, tax, payroll, and business support services
 
@@ -118,7 +118,7 @@ node screenshot.mjs http://localhost:3000
 * Optional label suffix:
 
 ```bash
-node screenshot.mjs http://localhost:3000 finora-home
+node screenshot.mjs http://localhost:3000 jyorah-home
 ```
 
 * After screenshotting, read the PNG from `temporary screenshots/` and compare it visually against the reference.
@@ -162,7 +162,7 @@ https://placehold.co/WIDTHxHEIGHT
 * If no logo exists, create a clean text-based logo:
 
 ```text
-FINORA
+JYORAH
 ```
 
 with small subtitle:
@@ -243,7 +243,7 @@ Professional. Reliable. Discreet.
 Body:
 
 ```text
-Finora Business Solutions provides accurate and confidential accounting, VAT, tax, payroll and business support for growing companies across the UAE and Middle East.
+Jyorah Business Solutions provides accurate and confidential accounting, VAT, tax, payroll and business support for growing companies across the UAE and Middle East.
 ```
 
 Support text:
@@ -285,7 +285,7 @@ Each card should have:
 Title:
 
 ```text
-Why Businesses Choose Finora
+Why Businesses Choose Jyorah
 ```
 
 Use icons and short points:
@@ -319,7 +319,7 @@ Ready to bring clarity to your business finances?
 Subtext:
 
 ```text
-Speak with Finora Business Solutions and explore flexible accounting and business support packages.
+Speak with Jyorah Business Solutions and explore flexible accounting and business support packages.
 ```
 
 Button:
@@ -335,10 +335,10 @@ Schedule Consultation
 Use:
 
 ```text
-Finora Business Solutions
+Jyorah Business Solutions
 Dubai, UAE
-info@finorame.com
-finorame.com
+info@jyorah.com
+jyorah.com
 ```
 
 Include:
@@ -373,8 +373,9 @@ Include:
 
 * Do not use JyoLedger anywhere.
 * Do not use lumora anywhere.
-* Company name must be **Finora Business Solutions**.
-* Domain must be **finorame.com**.
+* Do not use Finora anywhere.
+* Company name must be **Jyorah Business Solutions**.
+* Domain must be **jyorah.com**.
 * Keep design premium, black, gold, executive, and trustworthy.
 * Do not add unnecessary sections beyond those listed.
 * Do not stop after one screenshot pass.

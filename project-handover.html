@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Handover — Finora Business Solutions</title>
+  <title>Project Handover — Jyorah Business Solutions</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -272,6 +272,7 @@
     .badge-green { color: #7EBF7E; border-color: rgba(126,191,126,0.4); background: rgba(126,191,126,0.06); }
     .badge-amber { color: #E8C547; border-color: rgba(232,197,71,0.4); background: rgba(232,197,71,0.06); }
     .badge-red { color: #C97070; border-color: rgba(201,112,112,0.4); background: rgba(201,112,112,0.06); }
+    .badge-blue { color: #7EB8BF; border-color: rgba(126,184,191,0.4); background: rgba(126,184,191,0.06); }
 
     /* Callout */
     .callout {
@@ -289,6 +290,11 @@
       background: rgba(201,112,112,0.04);
       color: #C97070;
     }
+    .callout-green {
+      border-left-color: rgba(126,191,126,0.6);
+      background: rgba(126,191,126,0.04);
+      color: #7EBF7E;
+    }
 
     /* File tree */
     .filetree {
@@ -304,6 +310,39 @@
     .filetree .dir { color: #D4AF37; }
     .filetree .warn { color: #C97070; }
     .filetree .dim { color: #5A5550; }
+    .filetree .new { color: #7EBF7E; }
+
+    /* Quick links panel */
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .quick-link {
+      background: #111111;
+      border: 1px solid rgba(212,175,55,0.15);
+      padding: 14px 16px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .quick-link-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #7A7570;
+      margin-bottom: 4px;
+    }
+    .quick-link a {
+      font-size: 0.8rem;
+      color: #D4AF37;
+    }
+
+    /* Troubleshoot table — highlight platform column */
+    .ts-platform {
+      color: #D4AF37;
+      font-weight: 700;
+    }
 
     /* Divider */
     .divider {
@@ -344,16 +383,16 @@
   <!-- ─── COVER ─── -->
   <div class="cover">
     <div class="cover-eyebrow">Technical Handover Document</div>
-    <h1>Finora <span>Business Solutions</span><br>Website</h1>
-    <div class="cover-sub">finorame.com — Premium Accounting &amp; Business Support, Dubai UAE</div>
+    <h1>Jyorah <span>Business Solutions</span><br>Website</h1>
+    <div class="cover-sub">jyorah.com — Premium Accounting &amp; Business Support, Dubai UAE</div>
     <div class="cover-meta">
       Document date: <span>May 2026</span>
       &nbsp;·&nbsp;
-      Version: <span>1.0</span>
+      Version: <span>2.0</span>
       &nbsp;·&nbsp;
-      Repository: <span><a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></span>
+      Repository: <span><a href="https://github.com/aivarya/jyorah" target="_blank">github.com/aivarya/jyorah</a></span>
       &nbsp;·&nbsp;
-      Contact: <span><a href="mailto:info@finorame.com">info@finorame.com</a></span>
+      Contact: <span><a href="mailto:info@jyorah.com">info@jyorah.com</a></span>
     </div>
   </div>
 
@@ -370,9 +409,10 @@
       <li><a href="#s7">Consultation Form Flow</a></li>
       <li><a href="#s8">Airtable Integration</a></li>
       <li><a href="#s9">EmailJS Integration</a></li>
-      <li><a href="#s10">n8n Automation (Planned)</a></li>
+      <li><a href="#s10">n8n Auto-Reply</a></li>
       <li><a href="#s11">Brand &amp; Design System</a></li>
-      <li><a href="#s12">Deployment Notes</a></li>
+      <li><a href="#s12">Vercel Deployment</a></li>
+      <li><a href="#s13">Troubleshooting Guide</a></li>
     </ol>
   </div>
 
@@ -382,9 +422,9 @@
       <div class="section-num">01</div>
       <h2>Project Overview</h2>
     </div>
-    <p>Finora Business Solutions is a premium accounting, VAT, bookkeeping, payroll and business support firm based in Dubai, UAE. This website (<strong>finorame.com</strong>) is the company's primary digital presence — a single-page marketing site designed to attract and convert UAE business clients.</p>
-    <p>The site is built as a <strong>single static HTML file</strong> (<code>index.html</code>) with all styles and scripts inline. A lightweight Node.js HTTP server (<code>serve.mjs</code>) serves the file locally and provides one special route (<code>/env-config.js</code>) that injects API credentials from a <code>.env</code> file into the browser at runtime — keeping secrets out of source control.</p>
-    <p>Lead capture is handled entirely client-side: the consultation form POSTs directly to the <strong>Airtable REST API</strong> and sends a notification email via <strong>EmailJS</strong>. There is no application backend. All leads are stored in Airtable for later processing by n8n automation.</p>
+    <p>Jyorah Business Solutions is a premium accounting, VAT, bookkeeping, payroll and business support firm based in Dubai, UAE. This website (<strong>jyorah.com</strong>) is the company's primary digital presence — a single-page marketing site designed to attract and convert UAE business clients.</p>
+    <p>The site is built as a <strong>single static HTML file</strong> (<code>index.html</code>) with all styles and scripts inline. It is hosted on <strong>Vercel</strong>, which runs two lightweight serverless functions in the <code>/api/</code> directory: one serves runtime credentials (<code>/api/env-config</code>) and another proxies the n8n webhook to bypass browser CORS restrictions (<code>/api/n8n</code>).</p>
+    <p>Lead capture is handled client-side: the consultation form POSTs directly to the <strong>Airtable REST API</strong> (saves the lead) and sends a notification email via <strong>EmailJS</strong> (internal alert to <code>info@jyorah.com</code>). Simultaneously, it fires a webhook to <strong>n8n</strong> which automatically sends a personalised HTML reply email back to the customer.</p>
   </section>
 
   <!-- ─── 2. TECH STACK ─── -->
@@ -417,33 +457,48 @@
           <tr>
             <td><strong>EmailJS</strong></td>
             <td>v4 — jsDelivr CDN</td>
-            <td>Client-side email to <code>info@finorame.com</code> on form submit</td>
+            <td>Client-side notification email to <code>info@jyorah.com</code> on form submit</td>
           </tr>
           <tr>
             <td><strong>Airtable REST API</strong></td>
             <td>v0 — <code>api.airtable.com</code></td>
-            <td>Stores consultation form submissions as records</td>
+            <td>Stores consultation form submissions as records in Jyorah Leads base</td>
+          </tr>
+          <tr>
+            <td><strong>Vercel</strong></td>
+            <td>Serverless platform</td>
+            <td>Production hosting · <code>/api/env-config</code> runtime config · <code>/api/n8n</code> CORS proxy</td>
+          </tr>
+          <tr>
+            <td><strong>n8n</strong></td>
+            <td>Self-hosted at <a href="https://n8n.sreyx.com" target="_blank">n8n.sreyx.com</a></td>
+            <td>Customer auto-reply email — AI-generated, HTML-formatted, sent via SMTP</td>
+          </tr>
+          <tr>
+            <td><strong>OpenAI GPT-4o-mini</strong></td>
+            <td>via n8n AI Agent node</td>
+            <td>Generates personalised reply email content from form submission data</td>
           </tr>
           <tr>
             <td><strong>Node.js</strong></td>
             <td>≥ 18 recommended</td>
-            <td>Dev server (<code>serve.mjs</code>) — serves files + injects env config</td>
+            <td>Local dev server (<code>serve.mjs</code>) — mirrors Vercel serverless behaviour</td>
           </tr>
           <tr>
             <td><strong>Puppeteer</strong></td>
             <td>^24.4.0 — npm</td>
-            <td>Automated full-page screenshots for design review only</td>
+            <td>Automated full-page screenshots for design review only (not used in production)</td>
           </tr>
           <tr>
             <td><strong>Git / GitHub</strong></td>
-            <td>github.com/aivarya/finorame</td>
-            <td>Version control and source of truth</td>
+            <td><a href="https://github.com/aivarya/jyorah" target="_blank">github.com/aivarya/jyorah</a></td>
+            <td>Version control — Vercel auto-deploys on every push to <code>main</code></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="callout">
-      <strong>No build step, no bundler, no framework.</strong> The site runs as a plain HTML file. Any developer can open it in a browser or serve it with any HTTP server. The only Node.js dependency (Puppeteer) is used exclusively for screenshot automation — it is not required to run the website.
+      <strong>No build step, no bundler, no framework.</strong> The site runs as a plain HTML file. The only runtime infrastructure is Vercel (two small serverless functions) and n8n (self-hosted, external). Puppeteer is a dev-only dependency and not required in production.
     </div>
   </section>
 
@@ -454,14 +509,18 @@
       <h2>Project Structure</h2>
     </div>
     <div class="filetree">
-<span class="dir">finorame/</span>
+<span class="dir">jyorah/</span>
 ├── <span class="dir">index.html</span>              Complete website — HTML, CSS, JS all inline
-├── serve.mjs               Node.js HTTP dev server + /env-config.js route
+├── serve.mjs               Node.js HTTP dev server + /env-config.js route (local only)
 ├── screenshot.mjs          Puppeteer screenshot tool (design review only)
 ├── package.json            npm manifest — only dependency: puppeteer
 ├── <span class="warn">.env</span>                   ⚠ NEVER COMMIT — real API credentials
 ├── .env.example            Safe credential template — commit this
 ├── .gitignore              Excludes: .env · node_modules/ · temporary screenshots/
+├── <span class="new">vercel.json</span>             Vercel routing — rewrites /env-config.js → /api/env-config
+├── <span class="new">api/</span>                    Vercel serverless functions
+│   ├── <span class="new">env-config.js</span>       Serves window._JYORAH config from Vercel env vars
+│   └── <span class="new">n8n.js</span>              CORS proxy — forwards form webhook to n8n
 ├── claude.md               AI assistant project instructions
 ├── <span class="dim">node_modules/</span>           Puppeteer install (gitignored)
 ├── <span class="dim">temporary screenshots/</span>  Auto-generated screenshots (gitignored)
@@ -476,7 +535,7 @@
     └── finora_front_redesign.html
     </div>
     <div class="callout callout-warn">
-      The <code>.env</code> file contains live API keys and must <strong>never</strong> be committed to Git. It is listed in <code>.gitignore</code>. Use <code>.env.example</code> as the template when setting up on a new machine.
+      The <code>.env</code> file contains live API keys and must <strong>never</strong> be committed to Git. It is listed in <code>.gitignore</code>. Use <code>.env.example</code> as the template when setting up on a new machine. In production (Vercel), these variables are set in the Vercel dashboard — no <code>.env</code> file is used on the server.
     </div>
   </section>
 
@@ -487,15 +546,15 @@
       <h2>Local Development Setup</h2>
     </div>
     <ol class="steps">
-      <li data-n="1"><div><strong>Clone the repository</strong><br><code>git clone https://github.com/aivarya/finorame.git</code><br>Then <code>cd finorame</code></div></li>
+      <li data-n="1"><div><strong>Clone the repository</strong><br><code>git clone https://github.com/aivarya/jyorah.git</code><br>Then <code>cd jyorah</code></div></li>
       <li data-n="2"><div><strong>Install dependencies</strong><br><code>npm install</code><br>This installs Puppeteer (used only for screenshots). No other packages needed.</div></li>
-      <li data-n="3"><div><strong>Create your <code>.env</code> file</strong><br>Copy the template: <code>cp .env.example .env</code><br>Fill in your real Airtable and EmailJS credentials (see Section 5).</div></li>
-      <li data-n="4"><div><strong>Start the dev server</strong><br><code>node serve.mjs</code><br>Server starts at <code>http://localhost:3000</code></div></li>
+      <li data-n="3"><div><strong>Create your <code>.env</code> file</strong><br>Copy the template: <code>cp .env.example .env</code><br>Fill in all 7 credentials (see Section 5). The <code>N8N_WEBHOOK_URL</code> can be left blank locally if not testing auto-reply.</div></li>
+      <li data-n="4"><div><strong>Start the dev server</strong><br><code>node serve.mjs</code><br>Server starts at <code>http://localhost:3000</code> — mirrors the Vercel serverless behaviour locally.</div></li>
       <li data-n="5"><div><strong>Open in browser</strong><br>Navigate to <code>http://localhost:3000</code><br>The site loads with credentials injected via <code>/env-config.js</code></div></li>
       <li data-n="6"><div><strong>(Optional) Take a screenshot</strong><br><code>node screenshot.mjs http://localhost:3000 my-label</code><br>Saved to <code>temporary screenshots/screenshot-N-my-label.png</code></div></li>
     </ol>
     <div class="callout">
-      The server must be running at <code>localhost:3000</code> (not a <code>file:///</code> URL) for the <code>/env-config.js</code> endpoint to work and for credentials to be loaded correctly.
+      The server must be running at <code>localhost:3000</code> (not a <code>file:///</code> URL) for the <code>/env-config.js</code> endpoint to work and for credentials to be loaded correctly. On Vercel, this is handled automatically by <code>api/env-config.js</code>.
     </div>
   </section>
 
@@ -505,7 +564,7 @@
       <div class="section-num">05</div>
       <h2>Environment Variables</h2>
     </div>
-    <p>All six variables must be present in <code>.env</code> for the form to work end-to-end.</p>
+    <p>All seven variables must be present — in <code>.env</code> for local dev, and in the Vercel dashboard for production (Settings → Environment Variables).</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -542,6 +601,11 @@
             <td>EmailJS</td>
             <td>emailjs.com → Account → General → Public Key</td>
           </tr>
+          <tr>
+            <td><code>N8N_WEBHOOK_URL</code></td>
+            <td>n8n</td>
+            <td>Full webhook URL: <code>https://n8n.sreyx.com/webhook/jyorah-consultation</code><br>Used by <code>api/n8n.js</code> to proxy the form submission to n8n</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -549,11 +613,14 @@
     <pre><code>AIRTABLE_BASE_ID=appfO9KcyKCqvigDU
 AIRTABLE_TABLE_NAME=Consultations
 AIRTABLE_API_TOKEN=patXXXXXXXXXXXXXX.XXXXXXXX...
+
 EMAILJS_SERVICE_ID=service_63wuxhw
 EMAILJS_TEMPLATE_ID=template_tyjm9qu
-EMAILJS_PUBLIC_KEY=72-fPQVl8Gl4YC3_J</code></pre>
+EMAILJS_PUBLIC_KEY=72-fPQVl8Gl4YC3_J
+
+N8N_WEBHOOK_URL=https://n8n.sreyx.com/webhook/jyorah-consultation</code></pre>
     <h3>Airtable Table Setup</h3>
-    <p>The <code>Consultations</code> table in your Airtable base must have these fields:</p>
+    <p>The <code>Consultations</code> table in the <strong>Jyorah Leads</strong> base must have these exact fields:</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Field Name</th><th>Airtable Type</th></tr></thead>
@@ -579,27 +646,36 @@ EMAILJS_PUBLIC_KEY=72-fPQVl8Gl4YC3_J</code></pre>
       <div class="section-num">06</div>
       <h2>How Credentials Are Loaded</h2>
     </div>
-    <p>Since the site is a static HTML file with no server-side rendering, credentials can't be embedded at build time. The pattern used here is:</p>
+    <p>Since the site is a static HTML file with no server-side rendering, credentials are loaded at runtime via a dedicated endpoint. The same pattern is used both locally and in production — only the handler differs.</p>
+
+    <h3>Local Development (serve.mjs)</h3>
     <ol class="steps">
       <li data-n="1"><div><code>serve.mjs</code> reads <code>.env</code> from disk when the server starts</div></li>
-      <li data-n="2"><div>When the browser requests <code>/env-config.js</code>, the server responds with a JavaScript file that sets <code>window._FINORA</code></div></li>
+      <li data-n="2"><div>When the browser requests <code>/env-config.js</code>, <code>serve.mjs</code> responds with JavaScript that sets <code>window._JYORAH</code></div></li>
       <li data-n="3"><div><code>index.html</code> loads <code>&lt;script src="/env-config.js"&gt;&lt;/script&gt;</code> in <code>&lt;head&gt;</code></div></li>
-      <li data-n="4"><div>The form submission function reads credentials from <code>window._FINORA</code> at submit time</div></li>
+      <li data-n="4"><div>The form submission function reads credentials from <code>window._JYORAH</code> at submit time</div></li>
     </ol>
+
+    <h3>Production (Vercel — api/env-config.js)</h3>
+    <ol class="steps">
+      <li data-n="1"><div><code>vercel.json</code> rewrites any request to <code>/env-config.js</code> → <code>/api/env-config</code></div></li>
+      <li data-n="2"><div><code>api/env-config.js</code> reads environment variables from <code>process.env</code> (set in Vercel dashboard)</div></li>
+      <li data-n="3"><div>Returns the same <code>window._JYORAH = {...}</code> JavaScript response</div></li>
+      <li data-n="4"><div>The browser receives it identically — no change needed in <code>index.html</code></div></li>
+    </ol>
+
     <h3>Response from /env-config.js</h3>
-    <pre><code>window._FINORA = {
+    <pre><code>window._JYORAH = {
   airtableBaseId:    "appfO9KcyKCqvigDU",
   airtableTableName: "Consultations",
   airtableToken:     "patXXXXXXXXXXXXXX...",
   emailjsServiceId:  "service_63wuxhw",
   emailjsTemplateId: "template_tyjm9qu",
-  emailjsPublicKey:  "72-fPQVl8Gl4YC3_J"
+  emailjsPublicKey:  "72-fPQVl8Gl4YC3_J",
+  n8nWebhookUrl:     "/api/n8n"
 };</code></pre>
     <div class="callout callout-warn">
-      <strong>Security note:</strong> These values ARE visible in the browser (DevTools → Network → env-config.js). The <code>.env</code> pattern prevents credentials from being committed to Git — it does not hide them from someone viewing page source. The Airtable token is scoped to <code>data.records:write</code> on this base only, limiting exposure to someone being able to add records (not read or delete them).
-    </div>
-    <div class="callout">
-      <strong>For production hosting</strong> (Render, Railway, etc.), set the six variables as environment variables in the hosting dashboard. The <code>serve.mjs</code> server reads them via the same <code>process.env</code> mechanism.
+      <strong>Security note:</strong> These values ARE visible in the browser (DevTools → Network → env-config.js). The <code>.env</code> / Vercel env var pattern prevents credentials from being committed to Git — it does not hide them from someone viewing DevTools. The Airtable token is scoped to <code>data.records:write</code> on this base only, limiting exposure.
     </div>
   </section>
 
@@ -640,24 +716,41 @@ EMAILJS_PUBLIC_KEY=72-fPQVl8Gl4YC3_J</code></pre>
 Fills form → clicks "Submit Request"
          │
          ▼
-submitConsult() fires
+submitConsult() fires — runs three operations in parallel
          │
-         ├──────────────────────────────────┐
-         ▼                                  ▼
-POST → Airtable API               emailjs.send()
-(lead saved to spreadsheet)   (notification to info@finorame.com)
-         │                                  │
-         └──────────────┬───────────────────┘
+         ├─────────────────────────────────────────────────────┐
+         │                           │                         │
+         ▼                           ▼                         ▼
+POST → Airtable API          emailjs.send()         POST → /api/n8n
+(lead saved to               (notification to        (Vercel proxy)
+ Consultations table)         info@jyorah.com)              │
+         │                           │                         ▼
+         │                           │           n8n.sreyx.com webhook
+         │                           │                         │
+         │                           │              ┌──────────┘
+         │                           │              ▼
+         │                           │   Respond 200 immediately
+         │                           │              │
+         │                           │              ▼
+         │                           │   AI Agent (GPT-4o-mini)
+         │                           │   → generates reply JSON
+         │                           │              │
+         │                           │              ▼
+         │                           │   Parse Email JSON node
+         │                           │   → builds branded HTML email
+         │                           │              │
+         │                           │              ▼
+         │                           │   SMTP Send → customer email
+         │                           │   (from jyothi@jyorah.com)
+         └──────────────┬────────────┘
                         ▼
-            Both wrapped in try/catch
-            (one failing does not block the other)
+          Airtable + EmailJS wrapped in try/catch
+          (one failing does not block the other)
+          n8n is fire-and-forget (non-blocking)
                         │
                         ▼
                  Success state shown
-                 "Request Received"
-                        │
-                        ▼
-            User clicks Close → modal dismisses</div>
+                 "Request Received"</div>
     <h3>Modal Close Behaviour</h3>
     <p>The modal closes <strong>only</strong> via the ✕ button (top-right) or the "Close" button on the success screen. Clicking the backdrop or pressing Escape does <em>not</em> close it — this prevents accidental loss of partially filled form data.</p>
   </section>
@@ -668,7 +761,7 @@ POST → Airtable API               emailjs.send()
       <div class="section-num">08</div>
       <h2>Airtable Integration</h2>
     </div>
-    <p>Each form submission creates a new record in the <code>Consultations</code> table of the <strong>Finora Leads</strong> Airtable base.</p>
+    <p>Each form submission creates a new record in the <code>Consultations</code> table of the <strong>Jyorah Leads</strong> Airtable base.</p>
     <h3>API Call</h3>
     <pre><code>POST https://api.airtable.com/v0/{airtableBaseId}/{airtableTableName}
 
@@ -695,7 +788,7 @@ Body:
     </ul>
     <p>This limits exposure — a leaked token can only add records to this specific base, not read, delete, or access other bases.</p>
     <h3>Accessing Leads</h3>
-    <p>Log into <a href="https://airtable.com" target="_blank">airtable.com</a> with the account that owns the <strong>Finora Leads</strong> base. All form submissions appear in the <code>Consultations</code> table in real time.</p>
+    <p>Log into <a href="https://airtable.com" target="_blank">airtable.com</a> with the account that owns the <strong>Jyorah Leads</strong> base. All form submissions appear in the <code>Consultations</code> table in real time.</p>
   </section>
 
   <!-- ─── 9. EMAILJS ─── -->
@@ -704,7 +797,7 @@ Body:
       <div class="section-num">09</div>
       <h2>EmailJS Integration</h2>
     </div>
-    <p>EmailJS sends a notification email to <code>info@finorame.com</code> each time the consultation form is submitted. No backend or SMTP server is required — the email is sent directly from the user's browser.</p>
+    <p>EmailJS sends a notification email to <code>info@jyorah.com</code> each time the consultation form is submitted. This is the <strong>internal alert</strong> to the Jyorah team — it is separate from the customer auto-reply which is handled by n8n. No backend or SMTP server is required — the email is sent directly from the user's browser.</p>
     <h3>Library</h3>
     <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"&gt;&lt;/script&gt;</code></pre>
     <h3>How It Sends</h3>
@@ -721,7 +814,7 @@ Body:
         <thead><tr><th>Plan</th><th>Emails / Month</th><th>Note</th></tr></thead>
         <tbody>
           <tr><td>Free</td><td>200</td><td>Sufficient for early stage; upgrade if volume grows</td></tr>
-          <tr><td>Personal (paid)</td><td>1,000+</td><td>Remove EmailJS branding from emails</td></tr>
+          <tr><td>Personal (paid)</td><td>1,000+</td><td>Removes EmailJS branding from emails</td></tr>
         </tbody>
       </table>
     </div>
@@ -733,28 +826,60 @@ Body:
   <section id="s10">
     <div class="section-header">
       <div class="section-num">10</div>
-      <h2>n8n Automation (Planned)</h2>
+      <h2>n8n Auto-Reply</h2>
     </div>
-    <span class="badge badge-amber">Planned — Not Yet Live</span>
-    <p style="margin-top:14px;">n8n is a self-hosted workflow automation tool. The client runs an instance locally. The planned workflow will:</p>
-    <ol class="steps">
-      <li data-n="1"><div>Monitor the Airtable <code>Consultations</code> table for new records (polling or webhook)</div></li>
-      <li data-n="2"><div>Compose a personalised reply email to the lead using their submitted details</div></li>
-      <li data-n="3"><div>Send the reply via Outlook using Microsoft account <code>jyothi@finorame.com</code></div></li>
-    </ol>
+    <span class="badge badge-green">Live</span>
+    <span class="badge badge-blue">n8n.sreyx.com</span>
+    <p style="margin-top:14px;">n8n is a self-hosted workflow automation tool running at <a href="https://n8n.sreyx.com" target="_blank">n8n.sreyx.com</a>. When a customer submits the consultation form, n8n automatically sends them a personalised, branded HTML reply email within seconds.</p>
+
     <div class="callout">
-      <strong>Important:</strong> The website form does <strong>not depend on n8n</strong>. Leads are captured in Airtable and the internal notification is sent via EmailJS regardless of whether n8n is online. n8n is only responsible for the automated reply back to the lead.
+      <strong>The website does not depend on n8n.</strong> Leads are saved to Airtable and the internal notification goes via EmailJS regardless of whether n8n is online. n8n is only responsible for the <em>customer-facing auto-reply</em>.
     </div>
-    <h3>n8n Credentials to Configure</h3>
+
+    <h3>Workflow Details</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Credential</th><th>Details</th></tr></thead>
+        <thead><tr><th>Detail</th><th>Value</th></tr></thead>
         <tbody>
-          <tr><td>Microsoft / Outlook</td><td>Account: <code>jyothi@finorame.com</code></td></tr>
-          <tr><td>Airtable</td><td>Same Personal Access Token as <code>AIRTABLE_API_TOKEN</code> above (add <code>data.records:read</code> scope for n8n)</td></tr>
+          <tr><td>Workflow Name</td><td>Jyorah → Customer Auto Reply</td></tr>
+          <tr><td>Workflow ID</td><td><code>qcZgodKi4wNrMbGO</code></td></tr>
+          <tr><td>Webhook URL</td><td><code>https://n8n.sreyx.com/webhook/jyorah-consultation</code></td></tr>
+          <tr><td>Vercel Proxy</td><td><code>POST /api/n8n</code> (bypasses browser CORS)</td></tr>
+          <tr><td>Sends From</td><td><code>jyothi@jyorah.com</code> via SMTP</td></tr>
+          <tr><td>Sends To</td><td>Customer's email address from the form submission</td></tr>
+          <tr><td>SMTP Credential</td><td>"SMTP account 2" in n8n Credentials</td></tr>
+          <tr><td>AI Model</td><td>GPT-4o-mini via OpenAI ("OpenAi account" credential)</td></tr>
         </tbody>
       </table>
     </div>
+
+    <h3>Workflow Node Chain</h3>
+    <div class="flow">Webhook (POST /webhook/jyorah-consultation)
+  │
+  ▼
+Respond to Webhook → 200 OK immediately
+  │  (response sent before email processing — keeps form fast)
+  ▼
+AI Agent (GPT-4o-mini)
+  │  Input:  customer name, service selected, description
+  │  Output: JSON with subject, greeting, intro, body, closing
+  ▼
+Parse Email JSON (Code node)
+  │  Parses AI output → builds full branded HTML email
+  │  (black header, gold JYORAH wordmark, formatted body, signature)
+  ▼
+Send Reply Email (SMTP)
+     Sends to: customer's email
+     From:     jyothi@jyorah.com</div>
+
+    <h3>Managing the Workflow</h3>
+    <ol class="steps">
+      <li data-n="1"><div>Log in to <a href="https://n8n.sreyx.com" target="_blank">n8n.sreyx.com</a></div></li>
+      <li data-n="2"><div>Go to <strong>Workflows</strong> → open <strong>Jyorah → Customer Auto Reply</strong></div></li>
+      <li data-n="3"><div>To view past executions: click <strong>Executions</strong> (top bar) — each run is logged with input/output per node</div></li>
+      <li data-n="4"><div>To update SMTP settings: go to <strong>Credentials</strong> → <strong>SMTP account 2</strong></div></li>
+      <li data-n="5"><div>To update the AI prompt or email template: open the <strong>AI Agent</strong> or <strong>Parse Email JSON</strong> nodes</div></li>
+    </ol>
   </section>
 
   <!-- ─── 11. BRAND ─── -->
@@ -806,8 +931,8 @@ Body:
       <table>
         <thead><tr><th>Channel</th><th>Details</th></tr></thead>
         <tbody>
-          <tr><td>Website</td><td><a href="https://finorame.com" target="_blank">finorame.com</a></td></tr>
-          <tr><td>Email</td><td><a href="mailto:info@finorame.com">info@finorame.com</a></td></tr>
+          <tr><td>Website</td><td><a href="https://jyorah.com" target="_blank">jyorah.com</a></td></tr>
+          <tr><td>Email</td><td><a href="mailto:info@jyorah.com">info@jyorah.com</a></td></tr>
           <tr><td>WhatsApp</td><td>+971 50 155 3290 · <a href="https://wa.me/971501553290" target="_blank">wa.me/971501553290</a></td></tr>
           <tr><td>Location</td><td>Dubai, UAE</td></tr>
         </tbody>
@@ -815,56 +940,202 @@ Body:
     </div>
   </section>
 
-  <!-- ─── 12. DEPLOYMENT ─── -->
+  <!-- ─── 12. VERCEL DEPLOYMENT ─── -->
   <section id="s12">
     <div class="section-header">
       <div class="section-num">12</div>
-      <h2>Deployment Notes</h2>
+      <h2>Vercel Deployment</h2>
     </div>
-    <p>The website currently runs locally via <code>node serve.mjs</code>. To publish it publicly, a Node.js hosting environment is required so that <code>serve.mjs</code> can run and serve the <code>/env-config.js</code> endpoint.</p>
-    <h3>Recommended: Render (Free Tier)</h3>
+    <p>The site is deployed on <strong>Vercel</strong>, connected to the GitHub repository <code>aivarya/jyorah</code>. Every push to the <code>main</code> branch triggers an automatic deployment.</p>
+
+    <h3>How Vercel Serves the Site</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Request</th><th>Handler</th><th>What It Does</th></tr></thead>
+        <tbody>
+          <tr><td><code>GET /</code> (and all static files)</td><td>Vercel static file serving</td><td>Serves <code>index.html</code> and <code>brand_assets/</code></td></tr>
+          <tr><td><code>GET /env-config.js</code></td><td><code>api/env-config.js</code> (via vercel.json rewrite)</td><td>Returns <code>window._JYORAH = {...}</code> with live credentials from env vars</td></tr>
+          <tr><td><code>POST /api/n8n</code></td><td><code>api/n8n.js</code></td><td>Proxies form payload to n8n webhook (bypasses browser CORS)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Setting Environment Variables on Vercel</h3>
     <ol class="steps">
-      <li data-n="1"><div>Connect your GitHub repo (<code>aivarya/finorame</code>) to <a href="https://render.com" target="_blank">render.com</a></div></li>
-      <li data-n="2"><div>Create a <strong>Web Service</strong> — Runtime: Node · Build command: <code>npm install</code> · Start command: <code>node serve.mjs</code></div></li>
-      <li data-n="3"><div>Add all 6 environment variables in Render's dashboard (Environment tab) — no <code>.env</code> file needed on the server</div></li>
-      <li data-n="4"><div>Deploy — Render provides a public HTTPS URL. Point your domain <code>finorame.com</code> to it via a CNAME record</div></li>
+      <li data-n="1"><div>Log in to <a href="https://vercel.com" target="_blank">vercel.com</a> → open the <strong>jyorah</strong> project</div></li>
+      <li data-n="2"><div>Go to <strong>Settings → Environment Variables</strong></div></li>
+      <li data-n="3"><div>Add all 7 variables (same names as the <code>.env</code> file — see Section 5). Set scope to <strong>Production</strong> (and Preview if needed).</div></li>
+      <li data-n="4"><div>After adding/updating variables, <strong>redeploy</strong> the project — Vercel only injects env vars at deploy time, not live.</div></li>
     </ol>
-    <h3>Why Not Static Hosting?</h3>
     <div class="callout callout-warn">
-      GitHub Pages, Netlify, and Vercel serve purely static files. They cannot run <code>serve.mjs</code> or respond to the <code>/env-config.js</code> route. Deploying to these platforms as-is will cause the form to silently fail (credentials never loaded). A Node.js host is required, OR the <code>/env-config.js</code> pattern must be replaced with build-time env injection (e.g. Vite's <code>import.meta.env</code>).
+      Changing an environment variable on Vercel does <strong>not</strong> take effect until you trigger a new deployment. Go to the Deployments tab → click the latest deployment → Redeploy (or push a commit to <code>main</code>).
     </div>
-    <h3>Custom Domain (finorame.com)</h3>
+
+    <h3>vercel.json</h3>
+    <pre><code>{
+  "rewrites": [
+    { "source": "/env-config.js", "destination": "/api/env-config" }
+  ]
+}</code></pre>
+
+    <h3>Custom Domain (jyorah.com)</h3>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Step</th><th>Action</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>Add <code>finorame.com</code> as a custom domain in Render dashboard</td></tr>
-          <tr><td>2</td><td>Render provides a CNAME target (e.g. <code>finorame.onrender.com</code>)</td></tr>
-          <tr><td>3</td><td>In your domain registrar (GoDaddy / Namecheap / Cloudflare etc.) add a CNAME record: <code>finorame.com → finorame.onrender.com</code></td></tr>
-          <tr><td>4</td><td>Render provisions an SSL certificate automatically (Let's Encrypt)</td></tr>
+          <tr><td>1</td><td>In Vercel: Project → Settings → Domains → add <code>jyorah.com</code></td></tr>
+          <tr><td>2</td><td>Vercel provides a DNS target to point to (either A record or CNAME)</td></tr>
+          <tr><td>3</td><td>In your domain registrar (GoDaddy / Namecheap / Cloudflare etc.) update DNS records accordingly</td></tr>
+          <tr><td>4</td><td>Vercel provisions an SSL certificate automatically (Let's Encrypt)</td></tr>
         </tbody>
       </table>
     </div>
-    <h3>Key Accounts</h3>
+
+    <h3>Key Accounts &amp; Access</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Service</th><th>Details</th></tr></thead>
+        <thead><tr><th>Service</th><th>URL</th><th>Details</th></tr></thead>
         <tbody>
-          <tr><td>GitHub</td><td><a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></td></tr>
-          <tr><td>Airtable</td><td>Base: <strong>Finora Leads</strong> · Table: <strong>Consultations</strong></td></tr>
-          <tr><td>EmailJS</td><td>Service: <code>service_63wuxhw</code> · Template: <code>template_tyjm9qu</code></td></tr>
-          <tr><td>n8n</td><td>Self-hosted locally · Microsoft account: <code>jyothi@finorame.com</code></td></tr>
+          <tr><td><strong>Vercel</strong></td><td><a href="https://vercel.com" target="_blank">vercel.com</a></td><td>Project: jyorah · Connected to github.com/aivarya/jyorah · Auto-deploys on push to main</td></tr>
+          <tr><td><strong>GitHub</strong></td><td><a href="https://github.com/aivarya/jyorah" target="_blank">github.com/aivarya/jyorah</a></td><td>Source of truth · User: aivarya</td></tr>
+          <tr><td><strong>Airtable</strong></td><td><a href="https://airtable.com" target="_blank">airtable.com</a></td><td>Base: <strong>Jyorah Leads</strong> · Table: <strong>Consultations</strong></td></tr>
+          <tr><td><strong>EmailJS</strong></td><td><a href="https://emailjs.com" target="_blank">emailjs.com</a></td><td>Service: <code>service_63wuxhw</code> · Template: <code>template_tyjm9qu</code> · 200 emails/month free</td></tr>
+          <tr><td><strong>n8n</strong></td><td><a href="https://n8n.sreyx.com" target="_blank">n8n.sreyx.com</a></td><td>Workflow ID: <code>qcZgodKi4wNrMbGO</code> · SMTP account: <code>jyothi@jyorah.com</code></td></tr>
         </tbody>
       </table>
     </div>
+  </section>
+
+  <!-- ─── 13. TROUBLESHOOTING ─── -->
+  <section id="s13">
+    <div class="section-header">
+      <div class="section-num">13</div>
+      <h2>Troubleshooting Guide</h2>
+    </div>
+    <p>Use this section to diagnose issues quickly. Each row maps a symptom to the exact platform and location to check first.</p>
+
+    <h3>Quick Access — All Dashboards</h3>
+    <div class="quick-links">
+      <div class="quick-link">
+        <div class="quick-link-label">Auto-Reply Emails</div>
+        <a href="https://n8n.sreyx.com" target="_blank">n8n.sreyx.com</a>
+      </div>
+      <div class="quick-link">
+        <div class="quick-link-label">Website / Functions</div>
+        <a href="https://vercel.com" target="_blank">vercel.com</a>
+      </div>
+      <div class="quick-link">
+        <div class="quick-link-label">Lead Records</div>
+        <a href="https://airtable.com" target="_blank">airtable.com</a>
+      </div>
+      <div class="quick-link">
+        <div class="quick-link-label">Internal Alerts</div>
+        <a href="https://emailjs.com" target="_blank">emailjs.com</a>
+      </div>
+      <div class="quick-link">
+        <div class="quick-link-label">Source Code</div>
+        <a href="https://github.com/aivarya/jyorah" target="_blank">github.com/aivarya/jyorah</a>
+      </div>
+    </div>
+
+    <h3>Issue Lookup Table</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Symptom</th>
+            <th>Platform</th>
+            <th>Where Exactly</th>
+            <th>What to Look For / Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Customer auto-reply email not received</strong></td>
+            <td class="ts-platform">n8n</td>
+            <td>n8n.sreyx.com → Workflows → "Jyorah → Customer Auto Reply" → <strong>Executions</strong></td>
+            <td>Look for red nodes. Click the red node to see the error message. Common causes: SMTP auth failed, wrong password, port blocked. Go to Credentials → SMTP account 2 → click Test.</td>
+          </tr>
+          <tr>
+            <td><strong>n8n email shows green but still not received</strong></td>
+            <td class="ts-platform">n8n</td>
+            <td>Same execution → Send Reply Email node output</td>
+            <td><code>continueOnFail</code> may be swallowing an error. Set it to <code>false</code> temporarily to expose the real error. Also check spam/junk folder.</td>
+          </tr>
+          <tr>
+            <td><strong>Lead not saved in Airtable</strong></td>
+            <td class="ts-platform">Browser + Airtable</td>
+            <td>F12 → Network tab → filter by "airtable" → check the POST request status</td>
+            <td>401 = invalid API token. 422 = field name mismatch (check exact column names in base). 429 = rate limited. Verify <code>AIRTABLE_API_TOKEN</code> in Vercel env vars.</td>
+          </tr>
+          <tr>
+            <td><strong>Internal notification not received (info@jyorah.com)</strong></td>
+            <td class="ts-platform">EmailJS</td>
+            <td>emailjs.com → Dashboard → Usage / Statistics</td>
+            <td>Check if 200/month free tier limit is reached. Check template is active and not paused. Check spam folder.</td>
+          </tr>
+          <tr>
+            <td><strong>Website not loading or showing 500 error</strong></td>
+            <td class="ts-platform">Vercel</td>
+            <td>vercel.com → jyorah project → <strong>Deployments</strong> tab</td>
+            <td>Check if latest deployment is green. Click a failed deployment to see build logs. A red deployment = site is serving the last good version.</td>
+          </tr>
+          <tr>
+            <td><strong>Form submits but nothing happens / no success message</strong></td>
+            <td class="ts-platform">Browser</td>
+            <td>F12 → Console tab (look for errors) + Network tab (look for failed requests)</td>
+            <td>Most likely <code>/env-config.js</code> failed to load (check Network → env-config.js response). Could also be an Airtable 4xx error stopping execution.</td>
+          </tr>
+          <tr>
+            <td><strong>n8n webhook not being triggered at all</strong></td>
+            <td class="ts-platform">Vercel</td>
+            <td>vercel.com → jyorah project → <strong>Functions</strong> tab → <code>/api/n8n</code> → Logs</td>
+            <td>Check if the Vercel function is receiving the POST. If no logs appear, the form JS may not be calling it. Verify <code>N8N_WEBHOOK_URL</code> env var is set in Vercel settings.</td>
+          </tr>
+          <tr>
+            <td><strong>SMTP error in n8n execution</strong></td>
+            <td class="ts-platform">n8n</td>
+            <td>n8n.sreyx.com → Credentials → SMTP account 2 → Test</td>
+            <td>Common fixes: wrong host/port, app password needed (if using Gmail/Outlook), Secure (SSL) toggle wrong. Port 587 = STARTTLS (Secure OFF), Port 465 = SSL (Secure ON).</td>
+          </tr>
+          <tr>
+            <td><strong>All outgoing emails landing in spam</strong></td>
+            <td class="ts-platform">DNS</td>
+            <td>Check jyorah.com DNS records for SPF, DKIM, DMARC via <a href="https://mxtoolbox.com" target="_blank">mxtoolbox.com</a></td>
+            <td>Missing SPF record is the most common cause. Add SPF record for your mail provider. DKIM and DMARC improve deliverability further.</td>
+          </tr>
+          <tr>
+            <td><strong>Environment variable change not taking effect</strong></td>
+            <td class="ts-platform">Vercel</td>
+            <td>vercel.com → jyorah → Settings → Environment Variables</td>
+            <td>Vercel only applies env var changes on redeploy. After editing a variable, go to Deployments → Redeploy, or push a new commit to trigger a fresh deployment.</td>
+          </tr>
+          <tr>
+            <td><strong>AI Agent in n8n generating wrong / poor replies</strong></td>
+            <td class="ts-platform">n8n</td>
+            <td>n8n.sreyx.com → Workflow → AI Agent node → System Message</td>
+            <td>Edit the system prompt to adjust tone, length, or format. You can also pin test data to the Webhook node and run the workflow manually to preview output without a real form submission.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>General Debugging Steps</h3>
+    <ol class="steps">
+      <li data-n="1"><div><strong>Identify which step failed</strong> — is it saving to Airtable, sending the internal EmailJS alert, or the n8n auto-reply? Each is independent.</div></li>
+      <li data-n="2"><div><strong>Check the right platform</strong> — use the table above to go directly to the relevant dashboard.</div></li>
+      <li data-n="3"><div><strong>Look at logs</strong> — n8n Executions, Vercel Function logs, and browser DevTools Network tab are the three key places.</div></li>
+      <li data-n="4"><div><strong>Test credentials in isolation</strong> — n8n has a credential test button. Vercel env vars can be verified in the Functions → Logs output.</div></li>
+      <li data-n="5"><div><strong>Check spam/junk</strong> — both the internal EmailJS alert and the n8n auto-reply can end up in spam if SPF/DKIM records are not set up for jyorah.com.</div></li>
+    </ol>
   </section>
 
   <div class="divider"></div>
 
   <!-- ─── FOOTER ─── -->
   <div class="doc-footer">
-    <div>Finora Business Solutions · Project Handover v1.0 · May 2026</div>
-    <div>finorame.com · <a href="https://github.com/aivarya/finorame" target="_blank">github.com/aivarya/finorame</a></div>
+    <div>Jyorah Business Solutions · Project Handover v2.0 · May 2026</div>
+    <div>jyorah.com · <a href="https://github.com/aivarya/jyorah" target="_blank">github.com/aivarya/jyorah</a></div>
   </div>
 
 </div>

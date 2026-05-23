@@ -9,5 +9,5 @@ export default function handler(req, res) {
     n8nWebhookUrl:     process.env.N8N_WEBHOOK_URL      || ''
   };
   res.setHeader('Content-Type', 'application/javascript');
-  res.end('window._FINORA = ' + JSON.stringify(config) + ';');
+  res.end('window._JYORAH = ' + JSON.stringify(config) + ';');
 }

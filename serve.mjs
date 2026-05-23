@@ -51,7 +51,7 @@ http.createServer((req, res) => {
       emailjsPublicKey:  env.EMAILJS_PUBLIC_KEY   || ''
     };
     res.writeHead(200, { 'Content-Type': 'application/javascript' });
-    res.end('window._FINORA = ' + JSON.stringify(config) + ';');
+    res.end('window._JYORAH = ' + JSON.stringify(config) + ';');
     return;
   }
 
@@ -69,5 +69,5 @@ http.createServer((req, res) => {
     res.end(data);
   });
 }).listen(PORT, () => {
-  console.log(`Finora dev server → http://localhost:${PORT}`);
+  console.log(`Jyorah dev server → http://localhost:${PORT}`);
 });
